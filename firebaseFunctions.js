@@ -1,20 +1,21 @@
 // @ts-nocheck
 const { relative } = require("path");
 const next = require("next");
-const Server = require("next/dist/next-server/server/next-server");
 
+const nextJsDistDir = "src/.next";
 const isDev = process.env.NODE_ENV !== "production";
 
-/** @type Server */
-const nextServer = next({
+const nextJsServer = next({
   dev: isDev,
-  conf: { distDir: `${relative(process.cwd(), __dirname)}/src/.next` },
+  conf: {
+    distDir: `${relative(process.cwd(), __dirname)}/${nextJsDistDir}`,
+  },
 });
 
 const functions = require("firebase-functions");
-const handle = nextServer.getRequestHandler();
+const nextJsHandle = nextJsServer.getRequestHandler();
 
 exports.app = functions.https.onRequest((req, res) => {
   console.log("File: " + req.originalUrl); // log the page.js file that is being requested
-  return nextServer.prepare().then(() => handle(req, res));
+  return nextJsServer.prepare().then(() => nextJsHandle(req, res));
 });

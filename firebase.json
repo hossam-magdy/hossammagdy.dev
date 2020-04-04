@@ -1,23 +1,9 @@
 {
-  "hosting": {
-    "public": "public",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "rewrites": [
-      {
-        "source": "**",
-        "function": "app"
-      }
-    ]
-  },
-  // @see: https://firebase.google.com/docs/functions/manage-functions
   "functions": {
     "source": ".",
     "predeploy": [
-      // "npm --prefix \"$RESOURCE_DIR\" run lint",
-      // "npm --prefix \"$RESOURCE_DIR\" run build",
-      // "npm --prefix \"$PROJECT_DIR\" install",
+      "npm --prefix \"$PROJECT_DIR\" install",
       "npm --prefix \"$PROJECT_DIR\" run build"
-      // "mv $PROJECT_DIR/src/.next $RESOURCE_DIR"
     ]
   }
 }
