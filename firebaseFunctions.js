@@ -1,18 +1,18 @@
-const { relative } = require("path");
-const { default: next } = require("next");
+const { join } = require("path");
 const { https } = require("firebase-functions");
+const { default: next } = require("next");
 
-const nextJsDistDir = require("./src/next.config.js").distDir; // || "src/.next";
 const isDev = process.env.NODE_ENV !== "production";
+const nextjsDistDir = join("src", require("./src/next.config.js").distDir);
 
-const nextJsServer = next({
+const nextjsServer = next({
   dev: isDev,
   conf: {
-    distDir: `${relative(process.cwd(), __dirname)}/${nextJsDistDir}`,
+    distDir: nextjsDistDir,
   },
 });
-const nextJsHandle = nextJsServer.getRequestHandler();
+const nextjsHandle = nextjsServer.getRequestHandler();
 
-exports.app = https.onRequest((req, res) => {
-  return nextJsServer.prepare().then(() => nextJsHandle(req, res));
+exports.nextjsFunc = https.onRequest((req, res) => {
+  return nextjsServer.prepare().then(() => nextjsHandle(req, res));
 });

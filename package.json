@@ -7,9 +7,9 @@
     "dev": "next src/",
     "build": "next build src/",
     "start": "next start src/",
-    "serve": "npm run build && firebase emulators:start --only functions",
+    "serve": "npm run build && firebase emulators:start --only functions,hosting",
     "shell": "npm run build && firebase functions:shell",
-    "deploy": "firebase deploy --only functions",
+    "deploy": "firebase deploy --only functions,hosting",
     "logs": "firebase functions:log"
   },
   "repository": {

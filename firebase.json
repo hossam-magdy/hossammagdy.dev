@@ -1,14 +1,22 @@
-/*
-For references, @see:
-- https://firebase.google.com/docs/functions/manage-functions
-- https://firebase.google.com/docs/cli
-*/
+// https://youtu.be/LOeioOKUKI8
+// https://firebase.google.com/docs/cli
+// https://firebase.google.com/docs/functions/manage-functions
 {
+  "hosting": {
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "nextjsFunc"
+      }
+    ]
+  },
   "functions": {
     "source": ".",
     "predeploy": [
-      "npm --prefix \"$PROJECT_DIR\" install", // ensure node_modules is onstalled
-      "npm --prefix \"$PROJECT_DIR\" run build" // build/compile nextJs
+      "npm --prefix \"$PROJECT_DIR\" install", // ensure node_modules are installed
+      "npm --prefix \"$PROJECT_DIR\" run build" // and build/compile nextJs
     ]
   }
 }
