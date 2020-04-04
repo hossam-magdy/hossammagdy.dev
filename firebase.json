@@ -1,3 +1,8 @@
+/*
+For references, @see:
+- https://firebase.google.com/docs/functions/manage-functions
+- https://firebase.google.com/docs/cli
+*/
 {
   "functions": {
     "source": ".",

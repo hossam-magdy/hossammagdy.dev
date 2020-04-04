@@ -1,7 +1,8 @@
 const { relative } = require("path");
 const { default: next } = require("next");
+const { https } = require("firebase-functions");
 
-const nextJsDistDir = "src/.next";
+const nextJsDistDir = require("./src/next.config.js").distDir; // || "src/.next";
 const isDev = process.env.NODE_ENV !== "production";
 
 const nextJsServer = next({
@@ -10,11 +11,8 @@ const nextJsServer = next({
     distDir: `${relative(process.cwd(), __dirname)}/${nextJsDistDir}`,
   },
 });
-
-const functions = require("firebase-functions");
 const nextJsHandle = nextJsServer.getRequestHandler();
 
-exports.app = functions.https.onRequest((req, res) => {
-  console.log("File: " + req.originalUrl); // log the page.js file that is being requested
+exports.app = https.onRequest((req, res) => {
   return nextJsServer.prepare().then(() => nextJsHandle(req, res));
 });

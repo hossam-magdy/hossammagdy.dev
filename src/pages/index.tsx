@@ -6,7 +6,7 @@ Thanks for passing by,
 Cheers :)`;
 
 const Home: React.FC = () => {
-  return <pre>${TEXT}</pre>;
+  return <pre>{TEXT}</pre>;
 };
 
 export default Home;
