@@ -1,6 +1,5 @@
-// @ts-nocheck
 const { relative } = require("path");
-const next = require("next");
+const { default: next } = require("next");
 
 const nextJsDistDir = "src/.next";
 const isDev = process.env.NODE_ENV !== "production";

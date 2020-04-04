@@ -2,8 +2,8 @@
   "functions": {
     "source": ".",
     "predeploy": [
-      "npm --prefix \"$PROJECT_DIR\" install",
-      "npm --prefix \"$PROJECT_DIR\" run build"
+      "npm --prefix \"$PROJECT_DIR\" install", // ensure node_modules is onstalled
+      "npm --prefix \"$PROJECT_DIR\" run build" // build/compile nextJs
     ]
   }
 }
