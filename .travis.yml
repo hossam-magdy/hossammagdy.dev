@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - lts/*
+jobs:
+  include:
+    - stage: "Linting"
+      script: npm run lint
