@@ -1,17 +1,16 @@
-import React from "react";
-import Head from "next/head";
+import React from 'react';
 
-const TEXT = `(This will be built with some decent frontend tech ;) … later;`;
+import Head from 'next/head';
 
-const Home: React.FC = () => {
-  return (
-    <>
-      <Head>
-        <title>Hossam Magdy</title>
-      </Head>
-      <pre>{TEXT}</pre>
-    </>
-  );
-};
+const TEXT = '(This will be built with some decent frontend tech ;) … later;';
+
+const Home: React.FC = () => (
+  <>
+    <Head>
+      <title>Hossam Magdy</title>
+    </Head>
+    <pre>{TEXT}</pre>
+  </>
+);
 
 export default Home;
