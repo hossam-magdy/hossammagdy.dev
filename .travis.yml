@@ -3,5 +3,9 @@ node_js:
   - lts/*
 jobs:
   include:
-    - stage: "Linting"
+    - stage: Linting
       script: npm run lint
+deploy:
+  provider: firebase
+  token:
+    - secure: g5QoIsgI4PzKeHDhJVU7KEV7l0Sp2uqc48AZUgx+qVXOCTRg5ctp4PNfyZNTQMPQxOC9t4p3kPsRy/TQOXP3bdjNRNZWSWsNbEFKzdqTzEVLJvk1lD/pmGzMIUv7YOOxpjrUckABl1L3N2SpEeY+hB+Ml5HLv4kc3cwFJSxQbBEO8sMS/mIXv8CKm2uMNo8c6OG3Q4gl0k8pqDe6xcOi0dW2/dniSviXGFkF7iL9kV5Pg9fbFeG72atVBHb3ExgstUSeaNGmyaasbaBk5OGL3MzI5xzW+4weQQU5yCskrHbdldYrbfjk05dwnxOQWfiBhtIDkhEdB/prilTqZSgSqRDJ8fFtjvkft9sFZZv5NEOlmOo3s3+rACvK/8rphxXAtETckJhxT9pvrIJauAsDcpm5bpa6TAFDte+zOjN9EIFSGsWr/SXKL614LGUGtrf6BG7Ozcqx1XgR+hvCwgn63fhpfOBEfvgNyT4WUzFjCKT+2/A+2OaQG4n89RysVQnSJzYRLW+zZThRbNhdIGSorcwZAcc55/bYZX7FAEk2YV7M5nLlUJI9yQ9+MKUfQk0PMDCetlfPLywc9vHanWLCu8kGLuOt67lozjysOJwwDXEIiPUZI9qkUOSaa/p5mrsdaLylH8Jd5IrPmb0sgDfCHKeaAG8tbZKibrFoa+Ql9KE=
