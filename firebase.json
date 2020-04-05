@@ -15,8 +15,10 @@
   "functions": {
     "source": ".",
     "predeploy": [
-      "npm --prefix \"$PROJECT_DIR\" install", // ensure node_modules are installed
-      "npm --prefix \"$PROJECT_DIR\" run build" // and build/compile nextJs
+      "npm --prefix \"$PROJECT_DIR\" install", // ensure node_modules are installed (with devDep)
+      "npm --prefix \"$PROJECT_DIR\" run build", // and build/compile nextJs
+      "rm -rf \"$PROJECT_DIR/node_modules\"",
+      "npm --prefix \"$PROJECT_DIR\" --production install"
     ]
   }
 }
