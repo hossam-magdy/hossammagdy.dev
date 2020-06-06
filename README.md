@@ -2,17 +2,23 @@
 
 This is my personal website. It is currently quite poor in content and UI. However, the technologies used are:
 
-- NextJs
+- Deno
 - Typescript
-- eslint with ts-parser and prettier
 - CI/CD via TravisCI
-- Firebase hosting
+- Firebase hosting and Cloud Run
+
+#### Refs:
+
+- https://firebase.google.com/docs/hosting/cloud-run
+- https://cloud.google.com/run/docs/reference/container-contract#port
+- https://github.com/hayd/deno-docker
+- CLI: firebase: https://firebase.google.com/docs/cli
+- CLI: gcloud: https://cloud.google.com/sdk/docs/
+- https://console.cloud.google.com/apis/api/run.googleapis.com/overview
+- (extra) AWS: https://youtu.be/MS5pzddwwqU
 
 #### TODOs
 
-- Create PR to update NextJs [example with firebase hosting](https://github.com/zeit/next.js/tree/canary/examples/with-firebase-hosting)
-- Remove `engines` field from package.json (possibly write a script to adds it before deploy and removes it afterwards)
-- Do not deploy if `src`, `public` and `firebaseFunctions.js` are not changed
-- Add husky and list-staged and maybe stylelint
-- Check why prod build size is same even after removing devDep
-- Add tests through ts-jest, `test` script, and testing stage in travis.yml
+- use [github actions](https://help.github.com/en/actions/creating-actions/creating-a-docker-container-action) OR update `.travis.yml`: deno runtime + auth with gcloud
+- Add sample test and testing stage in CI/CD
+- Add react with JSX syntax

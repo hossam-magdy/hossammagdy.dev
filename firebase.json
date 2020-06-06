@@ -1,24 +1,17 @@
-// https://youtu.be/LOeioOKUKI8
-// https://firebase.google.com/docs/cli
-// https://firebase.google.com/docs/functions/manage-functions
+// Ref: https://firebase.google.com/docs/hosting/cloud-run#direct_requests_to_container
 {
   "hosting": {
     "public": "public",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": ["firebase.json", "**/.*"],
+
     "rewrites": [
       {
         "source": "**",
-        "function": "nextjsFunc"
+        "run": {
+          "serviceId": "hossammagdy", // "service name" (from when you deployed the container image)
+          "region": "europe-west1" // optional (if omitted, default is us-central1)
+        }
       }
-    ]
-  },
-  "functions": {
-    "source": ".",
-    "predeploy": [
-      "npm --prefix \"$PROJECT_DIR\" install", // ensure node_modules are installed (with devDep)
-      "npm --prefix \"$PROJECT_DIR\" run build", // and build/compile nextJs
-      "rm -rf \"$PROJECT_DIR/node_modules\"",
-      "npm --prefix \"$PROJECT_DIR\" --production install"
     ]
   }
 }

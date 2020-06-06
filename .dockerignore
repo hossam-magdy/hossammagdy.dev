@@ -1,0 +1,6 @@
+.*
+*.log
+*.md
+# Dockerfile
+Makefile
+firebase.json
