@@ -1,0 +1,49 @@
+# Workflow status badge: ![](https://github.com/<OWNER>/<REPOSITORY>/workflows/<WORKFLOW_NAME>/badge.svg)
+# Ref: https://help.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow
+name: CI
+
+on:
+  push:
+    # branches:
+    #   - master
+
+jobs:
+  build:
+    name: Build, test and deploy
+    runs-on: ubuntu-latest
+    env:
+      # To force applying "--quiet" to gcloud commands, (applying "--quiet" explicilty in some commands doesn't work!)
+      CLOUDSDK_CORE_DISABLE_PROMPTS: 1
+
+      # gcloud executable (currently ineffective, but could be used to run gcloud from docker for example)
+      GCLOUD: "gcloud"
+
+      # Because currently there is no "setup-firebase" github action, like "setup-gcloud"
+      # this simulates/alias for "firebase" command, use docker image with volume mappings and "GOOGLE_APPLICATION_CREDENTIALS" env for authentication
+      # see: https://firebase.google.com/docs/admin/setup#add-sdk
+      FIREBASE: "docker run -v ${PWD}:/app -v ${GOOGLE_APPLICATION_CREDENTIALS}:/gac.json -e GOOGLE_APPLICATION_CREDENTIALS=/gac.json -w /app rambabusaravanan/firebase firebase"
+
+    steps:
+      - name: git clone && git checkout
+        uses: actions/checkout@v2 # basically git clone
+      - name: Build docker image
+        run: make ci-build
+      - name: Run tests
+        run: make ci-test
+      - name: Setup gcloud
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+          # project_id: ${{ secrets.GCP_PROJECT_ID }}
+      - name: "Deploy: via `gcloud` and `firebase` CLIs"
+        run: make ci-deploy
+      # - name: build-push
+      #   uses: docker/build-push-action@v1
+      #   with:
+      #     username: ${{ DOCKER_USERNAME }}
+      #     password: ${{ DOCKER_PASSWORD }}
+      #     registry: myregistry
+      #     repository: myorg/myrepo
+      #     tags: v1
+      # - uses: docker://tmp_hossammagdy_dev:testing
