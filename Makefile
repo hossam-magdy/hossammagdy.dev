@@ -16,11 +16,14 @@ bash:
 
 # Run the docker image, closer env/runtime to the one run in CloudRun
 run:
-	docker run --rm -v ${PWD}:/app -p 8080:8080 ${IMAGE_TAG}
+	docker run --rm -it -v ${PWD}:/app -p 8080:8080 ${IMAGE_TAG}
 
 # Starts dev env: TODO: use denon
 start:
 	deno run -A src/index.ts
+
+test:
+	deno test -A
 
 ############# Deployment
 
@@ -39,10 +42,11 @@ _firebase-deploy:
 # https://hossammagdy-yhrmutrvhq-ew.a.run.app
 deploy: _gcloud-build _gcloud-deploy _firebase-deploy
 
-############## CI
+############# CI
 
 ci-build: build
-# TODO
+
 ci-test: 
-	docker run --rm --entrypoint=/bin/sh ${IMAGE_TAG}
+	docker run --rm ${IMAGE_TAG} test -A
+
 ci-deploy: deploy

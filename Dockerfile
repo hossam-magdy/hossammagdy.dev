@@ -3,9 +3,9 @@ FROM hayd/alpine-deno
 # EXPOSE $PORT
 USER deno
 WORKDIR /app
+COPY deps.ts .
+RUN deno cache deps.ts
 ADD . .
-# COPY deps.ts .
-# RUN deno cache deps.ts
 RUN deno cache src/index.ts
 
 # ENTRYPOINT [ "/bin/sh", "-c", "deno" ]

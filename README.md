@@ -21,5 +21,5 @@ This is my personal website. It is currently quite doesn't include much of a con
 
 #### TODOs
 
-- Add sample test and testing stage in CI/CD
 - Add react with JSX syntax
+- Use `denon` for development

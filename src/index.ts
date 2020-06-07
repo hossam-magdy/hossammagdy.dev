@@ -1,14 +1,17 @@
-import { serve } from "https://deno.land/std@0.55.0/http/server.ts";
+import { http_serve, PORT } from "../deps.ts";
 
-const PORT = parseInt(Deno.env.get('PORT') || '8080');
-
-const server = serve({ port: PORT });
+const server = http_serve({ port: PORT });
 
 console.log(`Start listening on port: ${PORT}`);
 
+const dumpObj = { VERSION: Deno.version, ENV: Deno.env.toObject() };
+
 for await (const req of server) {
-  req.respond({ body: `
-  Hello World from Deno
-  <pre>${JSON.stringify({VERSION: Deno.version, ENV: Deno.env.toObject()}, null, 2)}</pre>
-  ` });
+  req.respond({
+    headers: new Headers({
+      "Content-Type": "text/html",
+    }),
+    body: `Hello World from Deno<br />\nat "${new Date().toUTCString()}"
+<pre>${JSON.stringify(dumpObj, null, 2)}</pre>`,
+  });
 }
