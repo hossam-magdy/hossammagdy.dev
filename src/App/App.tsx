@@ -1,18 +1,18 @@
-import { React } from "../../deps.ts";
+import { React, ServerRequest } from "../../deps.ts";
 import { sortObject } from "../utils/sortObject.ts";
 
-const serverData = {
-  "Deno.version": Deno.version,
-  // "Deno.args": Deno.args, // always [] in GoogleCloudRun
-  // "Deno.build": Deno.build, // always on "linux x86_64 gnu" in GoogleCloudRun
-  "Deno.env.toObject()": sortObject(Deno.env.toObject()),
-  // "Deno.execPath": Deno.execPath(), // --allow-read
-  // "Deno.hostname()": Deno.hostname(), // --unstable
-  // "Deno.permissions": Deno.permissions.query({ name: "env" }), // many permissions
-  // "Deno.pid": Deno.pid, // always 1 in GoogleCloudRun
-};
+const getDenoData = () => ({
+  "version": Deno.version,
+  // "args": Deno.args, // always [] in GoogleCloudRun
+  // "build": Deno.build, // always on "linux x86_64 gnu" in GoogleCloudRun
+  "env.toObject()": sortObject(Deno.env.toObject()),
+  // "execPath": Deno.execPath(), // --allow-read
+  // "hostname()": Deno.hostname(), // --unstable
+  // "permissions": Deno.permissions.query({ name: "env" }), // many permissions
+  // "pid": Deno.pid, // always 1 in GoogleCloudRun
+});
 
-export const App = (<html>
+export const App = ({ req }: { req?: ServerRequest }) => (<html>
   <head>
     <title>Hossam Magdy</title>
     <link
@@ -25,6 +25,20 @@ export const App = (<html>
     <p>with React SSR</p>
     <p>processed at {new Date().toUTCString()}</p>
     <hr />
-    <pre>Server data:<br />{JSON.stringify(serverData, null, 2)}</pre>
+    <pre>
+      Server data:<br />
+      {JSON.stringify(
+        {
+          req: {
+            method: req?.method,
+            url: req?.url,
+            headers: req?.headers,
+          },
+          Deno: getDenoData(),
+        },
+        null,
+        2,
+      )}
+    </pre>
   </body>
 </html>);

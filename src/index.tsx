@@ -1,4 +1,4 @@
-import { http_serve, PORT, ReactDOMServer } from "../deps.ts";
+import { http_serve, PORT, React, ReactDOMServer } from "../deps.ts";
 import { App } from "./App/App.tsx";
 
 const server = http_serve({ port: PORT });
@@ -11,6 +11,6 @@ for await (const req of server) {
       "Content-Type": "text/html",
     }),
     // see: https://reactjs.org/docs/react-dom-server.html#rendertostaticmarkup
-    body: ReactDOMServer.renderToString(App),
+    body: ReactDOMServer.renderToString(<App req={req} />),
   });
 }

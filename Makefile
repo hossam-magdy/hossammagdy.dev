@@ -15,12 +15,12 @@ bash:
 	docker run --rm -it -v ${PWD}:/app --entrypoint=/bin/sh ${IMAGE_TAG}
 
 # Run the docker image, closer env/runtime to the one run in CloudRun
-run:
+start:
 	docker run --rm -it -v ${PWD}:/app -p 8080:8080 ${IMAGE_TAG}
 
 # Starts dev env: TODO: use denon
-start:
-	deno run -A src/index.ts
+run:
+	deno run -A src/index.tsx
 
 test:
 	deno test -A .
