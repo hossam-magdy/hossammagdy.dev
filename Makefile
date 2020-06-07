@@ -23,7 +23,7 @@ start:
 	deno run -A src/index.ts
 
 test:
-	deno test -A
+	deno test -A .
 
 ############# Deployment
 

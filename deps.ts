@@ -31,5 +31,7 @@ export const ReactDOMServer: typeof _ReactDOMServerNamespace =
   (_ReactDOMServer as any);
 
 //##### Tests
-export { assertEquals } from "https://deno.land/std@0.55.0/testing/asserts.ts";
+// see: https://deno.land/std/testing
+import * as asserts from "https://deno.land/std@0.55.0/testing/asserts.ts";
+export { asserts };
 export const test = Deno.test;

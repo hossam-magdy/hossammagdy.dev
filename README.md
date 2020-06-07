@@ -31,4 +31,5 @@ React and JSX:
 
 - Find a way around getting `deno bundle` to work with a react app
 - Report/fix `denon` not delegating argument `--allow-env` to `deno` cmd
-- Report/fix issue in Deno.fmt for `const x = (y);`
+- Report/fix issue: Deno.fmt doesn't remove unnecessary parentheses, like in `const x = (y);`
+- Report/fix issue in response content from https://deno.land/std/http/server.ts, wrongly encoding emoji chars like "🦕"
