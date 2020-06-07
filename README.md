@@ -11,6 +11,8 @@ This is my personal website. It is currently quite doesn't include much of a con
 
 #### Refs:
 
+Deno server on cloud:
+
 - https://firebase.google.com/docs/hosting/cloud-run
 - https://cloud.google.com/run/docs/reference/container-contract#port
 - https://github.com/hayd/deno-docker
@@ -18,6 +20,12 @@ This is my personal website. It is currently quite doesn't include much of a con
 - CLI: gcloud: https://cloud.google.com/sdk/docs/
 - https://console.cloud.google.com/apis/api/run.googleapis.com/overview
 - (extra) AWS: https://youtu.be/MS5pzddwwqU
+
+React and JSX:
+
+- https://dev.to/craigmorten/writing-a-react-ssr-app-in-deno-2m7
+- https://github.com/denoland/deno/pull/3038
+- https://github.com/denoland/deno/issues/4197
 
 #### TODOs
 
