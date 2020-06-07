@@ -7,7 +7,7 @@ This is my personal website. It is currently quite doesn't include much of a con
 - Deno
 - Typescript
 - Firebase hosting and Cloud Run
-- CI/CD via Github Actions (with `GCP_SA_KEY` as the only secret)
+- CI/CD via Github Actions (with [`GCP_SA_KEY`](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) as the only secret)
 
 #### Refs:
 
@@ -29,5 +29,6 @@ React and JSX:
 
 #### TODOs
 
-- Add react with JSX syntax
-- Use `denon` for development
+- Find a way around getting `deno bundle` to work with a react app
+- Report/fix `denon` not delegating argument `--allow-env` to `deno` cmd
+- Report/fix issue in Deno.fmt for `const x = (y);`
