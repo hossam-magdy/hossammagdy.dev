@@ -20,7 +20,10 @@ start:
 
 # Starts dev env: TODO: use denon
 run:
-	deno run -A src/index.tsx
+	deno run -A src/server.tsx
+
+bundle:
+	deno bundle src/client.tsx public/assets/app.js
 
 test:
 	deno test -A .
