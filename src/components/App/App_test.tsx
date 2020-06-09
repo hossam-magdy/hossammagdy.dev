@@ -1,4 +1,4 @@
-import { asserts, React, ReactDOMServer, test } from "../../deps.ts";
+import { asserts, React, ReactDOMServer, test } from "../../../deps_server.ts";
 import { App } from "./App.tsx";
 
 test("Assert web page has title 'Hossam Magdy'", () => {

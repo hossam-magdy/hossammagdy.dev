@@ -1,4 +1,11 @@
-import { React } from "../deps.ts";
-import { App } from "./App/App.tsx";
+import { React, ReactDOM } from "../deps_client.ts";
+import { App } from "./components/App/App.tsx";
 
-export const app = <App />;
+// (() => {
+console.log({ React, ReactDOM }); // TODO: both are "undefined" in bundle!
+
+ReactDOM.hydrate(<App />, document.querySelector("[data-reactroot]"));
+
+// const a = 1;
+// export { a };
+// })();

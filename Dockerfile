@@ -3,8 +3,8 @@ FROM hayd/alpine-deno
 # EXPOSE $PORT
 USER deno
 WORKDIR /app
-COPY deps.ts .
-RUN deno cache deps.ts
+COPY deps_server.ts .
+RUN deno cache deps_server.ts
 ADD . .
 RUN deno cache src/server.tsx
 

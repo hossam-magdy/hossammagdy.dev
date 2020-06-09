@@ -19,11 +19,14 @@ start:
 	docker run --rm -it -v ${PWD}:/app -p 8080:8080 ${IMAGE_TAG}
 
 # Starts dev env: TODO: use denon
-run:
-	deno run -A src/server.tsx
+run: bundle
+	deno run -c tsconfig_server.json -A src/server.tsx
 
 bundle:
-	deno bundle src/client.tsx public/assets/app.js
+	deno bundle -c tsconfig_client.json src/client.tsx public/assets/app.js
+
+cache:
+	deno cache src/server.tsx -r
 
 test:
 	deno test -A .
