@@ -14,8 +14,8 @@ const getDenoData = () => ({
 
 export const getServerData = (req?: ServerRequest) => (JSON.stringify(
   {
-    processedAt: new Date().toUTCString(),
     req: {
+      processedAt: new Date().toUTCString(),
       method: req?.method,
       url: req?.url,
       headers: req?.headers,

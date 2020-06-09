@@ -32,6 +32,7 @@ React and JSX:
 - Find a way around getting `deno bundle` to include the react library, then ensure `ReactDOM.hydrate` works!
 - Create `config.ts` file to include `assetsPath`,… etc
 - Update `skeleton.html` for decent standard content-skeleton (view-port,…)
+- Investigate why in docker image `Compile` on every start, even after `deno cache` in `Dockerfile`
 - Report/fix `denon` not delegating argument `--allow-env` to `deno` cmd
 - Report/fix issue: Deno.fmt doesn't remove unnecessary parentheses, like in `const x = (y);`
 - Report/fix issue in response content from https://deno.land/std/http/server.ts, wrongly encoding emoji chars like "🦕"

@@ -2,5 +2,7 @@
 *.log
 *.md
 # Dockerfile
-Makefile
-firebase.json
+/Makefile
+/firebase.json
+/public/assets/app*.js
+/public/assets/app*.css

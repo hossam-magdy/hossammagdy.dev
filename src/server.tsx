@@ -21,7 +21,7 @@ for await (const req of server) {
       // see: https://reactjs.org/docs/react-dom-server.html#rendertostaticmarkup
       body: getSkeleton(
         ReactDOMServer.renderToString(<App />) +
-          `<hr /><pre>${getServerData()}</pre>`,
+          `<hr /><pre>${getServerData(req)}</pre>`,
       ),
     });
   }
