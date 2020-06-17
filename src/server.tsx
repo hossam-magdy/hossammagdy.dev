@@ -20,8 +20,9 @@ for await (const req of server) {
       }),
       // see: https://reactjs.org/docs/react-dom-server.html#rendertostaticmarkup
       body: getSkeleton(
-        ReactDOMServer.renderToString(<App />) +
-          `<hr /><pre>${getServerData(req)}</pre>`,
+        `<pre>This website is under continuous development and experiments using Deno. For more details, check <a href="https://github.com/hossam-magdy/hossammagdy.dev">this</a> or "View page source".</pre>
+        ${ReactDOMServer.renderToString(<App />)}
+        <!-- ${getServerData(req)} -->`,
       ),
     });
   }
