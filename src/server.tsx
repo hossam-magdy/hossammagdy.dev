@@ -16,11 +16,11 @@ for await (const req of server) {
   } else {
     req.respond({
       headers: new Headers({
-        "Content-Type": "text/html",
+        "Content-Type": "text/html; charset=utf-8",
       }),
       // see: https://reactjs.org/docs/react-dom-server.html#rendertostaticmarkup
       body: getSkeleton(
-        `<pre>PS: This website is under continuous development and experiments, currently using Deno ${Deno.version.deno}. For details, "View page source" or check <a href="https://github.com/hossam-magdy/hossammagdy.dev">this</a>.</pre>
+        `<pre>PS: This website is under continuous development and experiments, currently using Deno v${Deno.version.deno} 🦕 … For details, "View page source" or check <a href="https://github.com/hossam-magdy/hossammagdy.dev">source code</a>.</pre>
         ${ReactDOMServer.renderToString(<App />)}
         <!-- ${getServerData(req)} -->`,
       ),
