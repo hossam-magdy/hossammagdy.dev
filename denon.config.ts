@@ -6,8 +6,8 @@ const config: DenonConfig = {
     start: {
       cmd: "deno run -c tsconfig_server.json src/server.tsx",
       desc: "Run the main server.",
-      // "inspect": "127.0.0.1:9229",
-      // "inspectBrk": "127.0.0.1:9229"
+      inspect: "127.0.0.1:9229",
+      // inspectBrk: "127.0.0.1:9229",
       allow: {
         env: true, // --allow-env
         net: true, // --allow-net
@@ -18,17 +18,11 @@ const config: DenonConfig = {
       cmd:
         "deno bundle -c tsconfig_client.json src/client.tsx public/assets/app.js",
       desc: "Bundle/build the client JS file.",
-      // "inspect": "127.0.0.1:9229",
-      // "inspectBrk": "127.0.0.1:9229"
     },
   },
 
   watcher: {
-    // The file extensions that it will scan for.
     exts: ["js", "jsx", "ts", "tsx", "json"],
-    // The globs that it will scan for.
-    // match: ["*.*"],
-    // The globs that it will not scan for.
     skip: [".git/*", "public/*"],
   },
 };

@@ -1,29 +1,23 @@
-# Logs
-logs
-*.log
-firebase-debug.log*
+# - .vscode except launch.json
+.vscode/*
+!.vscode/launch.json
 
+# - Build files: public/assets/
+public/assets/app*.js
+public/assets/app*.css
+
+# - Firebase
 # Firebase cache
 .firebase/
-
 # Firebase config
-
 # Uncomment this if you'd like others to create their own Firebase project.
 # For a team working on the same Firebase project(s), it is recommended to leave
 # it commented so all members can deploy to the same project(s) in .firebaserc.
 # .firebaserc
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Coverage directory used by tools like istanbul
-coverage
-
-# dotenv environment variables file
+# - dotenv
 .env
 
-.vscode/*
-!.vscode/launch.json
+# - Logs
+logs
+*.log
