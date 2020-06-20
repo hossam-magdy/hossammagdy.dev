@@ -5,9 +5,25 @@
 This is my personal website. It is currently quite doesn't include much of a content. However, the technologies used are:
 
 - Deno
-- Typescript
+- TypeScript
+- JSX + React SSR
 - Firebase hosting and Cloud Run
 - CI/CD via Github Actions (with [`GCP_SA_KEY`](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) as the only secret)
+
+### Development:
+
+- Install [deno](https://deno.land/)
+- Install [denon](https://deno.land/x/denon)
+- `denon build` in a terminal, and `denon start` in another
+- … make changes …
+- `make test`: ✓ ? … push (CI/CD)
+
+To simulate the CI/CD:
+
+- `make ci-build`
+- `make ci-test`
+- `make ci-deploy`
+- TBD: secret key
 
 #### Refs:
 
@@ -33,5 +49,4 @@ React and JSX:
 - Create `config.ts` file to include `assetsPath`,… etc
 - Update `skeleton.html` for decent standard content-skeleton (view-port,…)
 - Investigate why in docker image `Compile` on every start, even after `deno cache` in `Dockerfile`
-- Report/fix `denon` not delegating argument `--allow-env` to `deno` cmd
 - Report/fix issue: Deno.fmt doesn't remove unnecessary parentheses, like in `const x = (y);`
