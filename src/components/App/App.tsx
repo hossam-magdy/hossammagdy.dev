@@ -3,7 +3,7 @@ import { React } from "../../../deps_client.ts";
 const LINKS = [
   { text: "Github", href: "https://github.com/hossam-magdy" },
   { text: "LinkedIn", href: "https://www.linkedin.com/in/hossammagdy/" },
-  { text: "Xing", href: "https://www.xing.com/profile/Hossam_Magdy3" },
+  { text: "Xing", href: "https://www.xing.com/profile/HossamMagdy" },
 ];
 
 const TECHS = {
