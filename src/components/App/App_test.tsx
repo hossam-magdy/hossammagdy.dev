@@ -4,5 +4,5 @@ import { App } from "./App.tsx";
 test("Assert web page includes text 'Hossam Magdy'", () => {
   const actual = ReactDOMServer.renderToStaticMarkup(<App />);
   const expected = "Hossam Magdy";
-  asserts.assertStrContains(actual, expected);
+  asserts.assertStringContains(actual, expected);
 });
