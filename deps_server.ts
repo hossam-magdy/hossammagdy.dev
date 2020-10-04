@@ -14,6 +14,8 @@ export const PORT = parseInt(Deno.env.get("PORT") || "8080");
 
 export * from "./deps_client.ts";
 
+// #region ReactDOMServer
+/*
 // The following way to use ReactDOMServer is temporarily untill PikaCDN supports react-dom/server with types
 // ref: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-dom/server/index.d.ts
 import _ReactDOMServer from "https://dev.jspm.io/react-dom/server";
@@ -33,7 +35,11 @@ const ReactDOMServer: ReactDOMServer = _ReactDOMServer as any;
 
 // export
 export { ReactDOMServer };
+*/
 // #endregion
+
+import { renderToString } from 'https://cdn.skypack.dev/preact-render-to-string@^5.1.9';
+export { renderToString }
 
 // #region Tests     // see: https://deno.land/std/testing
 import * as asserts from "https://deno.land/std@0.73.0/testing/asserts.ts";

@@ -12,8 +12,8 @@ const TECHS = {
   FUTURE: ["Deno", "Rust"],
 };
 
-export const App = () => (<pre>
-  <h3>Hello,</h3>
+export const App = (props: { name?: string }) => (<pre>
+  <h3>Hello{props.name},</h3>
   <h3>This is Hossam Magdy.</h3>
   <h3>I am a Software Engineer working on both ends, Backend and Frontend.</h3>
   <h3>

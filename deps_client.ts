@@ -1,5 +1,24 @@
-// #region React
 
+// #region PReact
+
+// x @deno-types="https://deno.land/std@0.40.0/types/react.d.ts" // FOR BUNDLING .. 0.40.0 is the last std version included react.d.ts
+// x @deno-types="https://unpkg.com/preact@10.5.3/src/index.d.ts"
+import * as React from 'https://cdn.skypack.dev/preact@^10.4.4'; // WORKING and BUNDLING
+// import * as React from 'https://unpkg.com/preact@10.5.3/dist/preact.module.js'; // WORKING and BUNDLING
+// import * as React from 'https://unpkg.com/htm@3.0.4/preact/standalone.module.js'; // NOT WORKING (doesn't include .hydrate())
+// import * as React from 'https://unpkg.com/preact-render-to-string@5.1.8/dist/jsx.module.js';
+export { React };
+
+// This is a "trick" to include react.d.ts during compilation, which defines globals like "JSX"
+// if used in "@deno-types=" instead (which it should be!), it breaks the bundling of either React or ReactDOM
+import type * as IReact from "https://deno.land/std@0.40.0/types/react.d.ts";
+const X: IReact.FC | undefined = undefined;
+
+// #endregion
+
+
+// #region React
+/* 
 // X(404) @deno-types="https://deno.land/x/types/react/v16.13.1/react.d.ts"
 // X @deno-types="https://www.unpkg.com/@types/react@16.9.50/index.d.ts"
 // X @deno-types="https://cdn.jsdelivr.net/npm/@types/react@16.9.45/index.d.ts"
@@ -28,4 +47,5 @@ const X: IReact.FC | undefined = undefined;
 
 // export
 export { React, ReactDOM, IReact };
+*/
 // #endregion
