@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "jsxFactory": "React.h",
-    "jsxFragmentFactory": "React.Fragment",
+    "jsx": "react",
     "lib": ["DOM", "ESNext"]
   }
 }

@@ -1,4 +1,4 @@
-FROM hayd/alpine-deno:1.4.3
+FROM hayd/alpine-deno:1.6.0
 
 # EXPOSE $PORT (default 8080)
 WORKDIR /app
