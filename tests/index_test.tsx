@@ -1,5 +1,6 @@
-import { asserts, React, ReactDOMServer, test } from "../../../deps_server.ts";
-import { App } from "./App.tsx";
+import { asserts, React, ReactDOMServer, test } from "./deps.ts";
+
+import App from "../pages/index.tsx";
 
 test("Assert web page includes text 'Hossam Magdy'", () => {
   const actual = ReactDOMServer.renderToStaticMarkup(<App />);

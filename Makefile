@@ -7,6 +7,10 @@ PROJECT_REGION=europe-west1
 GCLOUD?=gcloud
 FIREBASE?=firebase # could be "docker run -v ${PWD}:/app -v ${GOOGLE_APPLICATION_CREDENTIALS}:/gac.json -e GOOGLE_APPLICATION_CREDENTIALS=/gac.json -w /app rambabusaravanan/firebase firebase"
 
+ALEPH=deno run -A https://deno.land/x/aleph@v0.2.27/cli.ts
+# install-aleph:
+# 	deno install -A -f -n aleph https://deno.land/x/aleph@v0.2.27/cli.ts
+
 # Build docker image as the one built in gcloud/CloudRun
 build:
 	docker build -t ${IMAGE_TAG} .
@@ -18,15 +22,19 @@ bash:
 start:
 	docker run --rm -it -v ${PWD}:/app -p 8080:8080 ${IMAGE_TAG}
 
-# Starts dev env: TODO: use denon
-run: bundle
-	deno run -c tsconfig_server.json -A src/server.tsx
+# Starts dev env
+run: aleph-dev
 
-bundle:
-	deno bundle -c tsconfig_client.json src/client.tsx public/assets/app.js
+aleph-build:
+	${ALEPH} build
 
-cache:
-	deno cache src/server.tsx -r
+aleph-dev:
+	${ALEPH} dev
+
+aleph-start:
+	${ALEPH} start
+
+cache: aleph-build
 
 test:
 	deno test -A .
@@ -52,7 +60,7 @@ deploy: _gcloud-build _gcloud-deploy _firebase-deploy
 
 ci-build: build
 
-ci-test: 
-	docker run --rm ${IMAGE_TAG} test -A
+ci-test:
+	docker run --rm ${IMAGE_TAG} "deno test -A"
 
 ci-deploy: deploy
