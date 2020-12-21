@@ -38,12 +38,3 @@ jobs:
           # project_id: ${{ secrets.GCP_PROJECT_ID }}
       - name: "Deploy: via `gcloud` and `firebase` CLIs"
         run: make ci-deploy
-      # - name: build-push
-      #   uses: docker/build-push-action@v1
-      #   with:
-      #     username: ${{ DOCKER_USERNAME }}
-      #     password: ${{ DOCKER_PASSWORD }}
-      #     registry: myregistry
-      #     repository: myorg/myrepo
-      #     tags: v1
-      # - uses: docker://tmp_hossammagdy_dev:testing
