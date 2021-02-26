@@ -1,4 +1,4 @@
-import { minifier } from "../../deps_server.ts";
+import { minifier } from "deps_server";
 
 const SKELETON_FILEPATH = "src/skeleton.html";
 

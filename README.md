@@ -1,17 +1,19 @@
 # [hossammagdy.dev](https://hossammagdy.dev)
 
+[![CI workflow](https://github.com/hossam-magdy/hossammagdy.dev/workflows/CI/badge.svg)](https://github.com/hossam-magdy/hossammagdy.dev/actions/workflows/ci.yml)
+
 This is my personal website. It is currently doesn't include much of a content. But I use it to experience different technologies. The current tech used:
 
 - Deno
 - TypeScript
-- JSX + React SSR
+- JSX & React (SSR + Client hydration)
 - Firebase hosting and Cloud Run
 - CI/CD via Github Actions (with [`GCP_SA_KEY`](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) as the only secret)
 
 ## Development
 
 - Install [deno](https://deno.land/)
-- `make bundle-watch` in a terminal, and `make run-watch` in another
+- `make bundle` in a terminal, and `make start` in another
 - … make changes …
 - `make test`: ✓ ? … push (CI/CD)
 
@@ -48,13 +50,9 @@ This is my personal website. It is currently doesn't include much of a content. 
 
 ## TODOs
 
-- [ ] Find a way around getting `deno bundle` to include the react library, then ensure `ReactDOM.hydrate` works!
+- [x] Find a way around getting `deno bundle` to include the react library, then ensure `ReactDOM.hydrate` works!
 - [ ] Use a decent routing library, like [`abc`](https://deno.land/x/abc) or [`oak`](https://deno.land/x/oak)
 - [ ] Create `config.ts` file to include `assetsPath`,… etc
 - [ ] Update `skeleton.html` for decent standard content-skeleton (view-port,…)
 - [ ] Investigate why in docker image `Compile` on every start, even after `deno cache` in `Dockerfile`
 - [ ] Report/fix issue: Deno.fmt doesn't remove unnecessary parentheses, like in `const x = (y);` (deno uses [dprint](https://dprint.dev/playground/#code/MYewdgzgLgBAHjAvDAFARgJQG4BQQ/language/typescript) for formatting)
-
----
-
-![](https://github.com/hossam-magdy/hossammagdy.dev/workflows/CI/badge.svg)

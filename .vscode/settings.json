@@ -2,5 +2,6 @@
   "deno.enable": true,
   "deno.lint": true,
   "deno.unstable": true,
-  "deno.config": "tsconfig_client.json"
+  "deno.config": "tsconfig_client.json",
+  "deno.importMap": "import_map.json"
 }

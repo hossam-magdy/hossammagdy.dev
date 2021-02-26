@@ -1,22 +1,25 @@
-import { React, ReactDOM } from "../deps_client.ts";
-import { App } from "./components/App/App.tsx";
+import { React, ReactDOM } from "deps_client";
+import { App } from "components/App/App.tsx";
 
 console.log(
-  "[Test] This a client-side-only JS execution, to validate Deno bundling of React & ReactDOM:",
+  "[Test] This a client-side-only JS execution,\nto validate Deno's bundling of React & ReactDOM:\n",
   { React, ReactDOM },
 );
 
-const domRootNode = document.querySelector("[data-reactroot]");
+const domNode = document.querySelector("[data-reactroot]");
 
-const hydrationResult = ReactDOM.hydrate(<App name={"👋"} />, domRootNode);
+const hydrationResult = ReactDOM.hydrate(<App name={"👋"} />, domNode);
 
 if (
-  domRootNode &&
+  domNode &&
   typeof ReactDOM.hydrate === "function" &&
   hydrationResult === null
 ) {
   console.log("✅ ReactDOM hydration succeeded!");
 } else {
-  console.log("❌ ERROR: possible ReactDOM hydration failure!");
+  console.error("❌ ERROR: possible ReactDOM hydration failure!", {
+    domNode,
+    "ReactDOM.hydrate": ReactDOM.hydrate,
+    hydrationResult,
+  });
 }
-// React.hydrate(<App />, document.querySelector("[data-reactroot]"));

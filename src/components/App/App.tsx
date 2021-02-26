@@ -1,7 +1,7 @@
-import { React } from "../../../deps_client.ts";
+import { React } from "deps_client";
 
-import { AboutMe } from "../AboutMe/AboutMe.tsx";
-import { Disclaimer } from "../Disclaimer/Disclaimer.tsx";
+import { AboutMe } from "components/AboutMe/AboutMe.tsx";
+import { Disclaimer } from "components/Disclaimer/Disclaimer.tsx";
 
 export const App: React.FC<{ name?: string }> = ({ name }) => (
   <>

@@ -7,32 +7,34 @@ PROJECT_REGION=europe-west1
 GCLOUD?=gcloud
 FIREBASE?=firebase # could be "docker run -v ${PWD}:/app -v ${GOOGLE_APPLICATION_CREDENTIALS}:/gac.json -e GOOGLE_APPLICATION_CREDENTIALS=/gac.json -w /app rambabusaravanan/firebase firebase"
 
-# Build docker image as the one built in gcloud/CloudRun
-build:
-	docker build -t ${IMAGE_TAG} .
-
-bash:
-	docker run --rm -it -v ${PWD}:/app --entrypoint=/bin/sh ${IMAGE_TAG}
-
-# Run the docker image, closer env/runtime to the one run in CloudRun
+# Starts deno server (in watch mode)
 start:
-	docker run --rm -it -v ${PWD}:/app -p 8080:8080 ${IMAGE_TAG}
+	@echo "*** Please run 'make bundle' in another terminal ***" && echo
+	deno run -c=tsconfig_server.json --import-map=import_map.json --watch --unstable -A src/server.tsx
 
-# Starts dev env: TODO: use denon
-run: bundle
-	deno run --config tsconfig_server.json -A src/server.tsx
-
-run-watch:
-	deno run --config tsconfig_server.json --watch --unstable -A src/server.tsx
-
-bundle-watch:
-	deno bundle --config tsconfig_client.json --watch --unstable src/client.tsx public/assets/app.js
+# Bundles client artifacts (in watch mode)
+bundle:
+	@echo "*** Please run 'make start' in another terminal ***" && echo
+	deno bundle -c=tsconfig_client.json --import-map=import_map.json --watch --unstable src/client.tsx public/assets/app.js
 
 cache:
 	deno cache src/server.tsx -r
 
 test:
-	deno test -A .
+	deno test --import-map=import_map.json --unstable -A .
+
+############# docker
+
+# Build docker image as the one built in gcloud/CloudRun
+docker-build:
+	docker build -t ${IMAGE_TAG} .
+
+docker-bash:
+	docker run --rm -it -v ${PWD}:/app --entrypoint=/bin/sh ${IMAGE_TAG}
+
+# Run the docker image, closer env/runtime to the one run in CloudRun
+docker-start:
+	docker run --rm -it -v ${PWD}:/app -p 8080:8080 ${IMAGE_TAG}
 
 ############# Deployment
 
@@ -53,9 +55,9 @@ deploy: _gcloud-build _gcloud-deploy _firebase-deploy
 
 ############# CI
 
-ci-build: build
+ci-build: docker-build
 
 ci-test: 
-	docker run --rm ${IMAGE_TAG} test -A
+	docker run --rm ${IMAGE_TAG} test --import-map=import_map.json --unstable -A
 
 ci-deploy: deploy

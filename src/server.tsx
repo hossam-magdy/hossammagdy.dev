@@ -1,11 +1,12 @@
-import { http_serve, PORT, React, ReactDOMServer } from "../deps_server.ts";
-import { App } from "./components/App/App.tsx";
-import { getServerData } from "./utils/getServerData.ts";
-import { getSkeleton } from "./utils/getSkeleton.ts";
-import { serveStaticFile } from "./utils/serveStaticFile.ts";
-import { isStaticFileRequest } from "./utils/isStaticFileRequest.ts";
+import { http, React, ReactDOMServer } from "deps_server";
+import { App } from "components/App/App.tsx";
+import { getServerData } from "utils/getServerData.ts";
+import { getSkeleton } from "utils/getSkeleton.ts";
+import { isStaticFileRequest } from "utils/isStaticFileRequest.ts";
+import { serveStaticFile } from "utils/serveStaticFile.ts";
 
-const server = http_serve({ port: PORT });
+export const PORT = parseInt(Deno.env.get("PORT") || "8080");
+const server = http.serve({ port: PORT });
 
 console.log(`Start listening on port: ${PORT}`);
 

@@ -1,4 +1,4 @@
-import { React } from "../../../deps_client.ts";
+import { React } from "deps_client";
 
 const LINKS = [
   { text: "Github", href: "https://github.com/hossam-magdy" },
