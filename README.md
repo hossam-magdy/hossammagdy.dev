@@ -1,6 +1,6 @@
 # [hossammagdy.dev](https://hossammagdy.dev)
 
-This is my personal website. It currently doesn't include much of a content. But I use it to experience different technologies. The current tech used:
+This is my personal website. It is currently doesn't include much of a content. But I use it to experience different technologies. The current tech used:
 
 - Deno
 - TypeScript

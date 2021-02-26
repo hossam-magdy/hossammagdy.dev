@@ -1,14 +1,15 @@
 # Workflow status badge: ![](https://github.com/<OWNER>/<REPOSITORY>/workflows/<WORKFLOW_NAME>/badge.svg)
 # Ref: https://help.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow
-name: Build
+name: CI
 
 on:
   push:
-  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
-    name: Build, test
+    name: Build, test and deploy
     runs-on: ubuntu-latest
     env:
       # To force applying "--quiet" to gcloud commands, (applying "--quiet" explicilty in some commands doesn't work!)
@@ -29,3 +30,20 @@ jobs:
         run: make ci-build
       - name: Run tests
         run: make ci-test
+      - name: Setup gcloud
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+          # project_id: ${{ secrets.GCP_PROJECT_ID }}
+      - name: "Deploy: via `gcloud` and `firebase` CLIs"
+        run: make ci-deploy
+      # - name: build-push
+      #   uses: docker/build-push-action@v1
+      #   with:
+      #     username: ${{ DOCKER_USERNAME }}
+      #     password: ${{ DOCKER_PASSWORD }}
+      #     registry: myregistry
+      #     repository: myorg/myrepo
+      #     tags: v1
+      # - uses: docker://tmp_hossammagdy_dev:testing
