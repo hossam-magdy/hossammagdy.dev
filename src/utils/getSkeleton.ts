@@ -1,3 +1,14 @@
+import { minifier } from "../../deps_server.ts";
+
+const SKELETON_FILEPATH = "src/skeleton.html";
+
 const decoder = new TextDecoder("utf-8");
-const skeleton = decoder.decode(await Deno.readFile("src/skeleton.html"));
-export const getSkeleton = (content?: string) => content ? skeleton.replace("__PLACEHOLDER__", content) : skeleton;
+
+const skeletonUint8Arr = await Deno.readFile(SKELETON_FILEPATH);
+const unminifiedSkeleton = decoder.decode(skeletonUint8Arr);
+const minifiedSkeleton = minifier.minifyHTML(unminifiedSkeleton);
+
+export const getSkeleton = (content?: string) =>
+  content
+    ? minifiedSkeleton.replace("__PLACEHOLDER__", content)
+    : minifiedSkeleton;

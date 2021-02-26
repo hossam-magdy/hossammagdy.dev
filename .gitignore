@@ -1,6 +1,7 @@
 # - .vscode except launch.json
 .vscode/*
 !.vscode/launch.json
+!.vscode/settings.json
 
 # - Build files: public/assets/
 public/assets/app*.js
@@ -21,3 +22,6 @@ public/assets/app*.css
 # - Logs
 logs
 *.log
+
+# - mac
+.DS_Store

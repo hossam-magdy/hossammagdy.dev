@@ -20,10 +20,13 @@ start:
 
 # Starts dev env: TODO: use denon
 run: bundle
-	deno run -c tsconfig_server.json -A src/server.tsx
+	deno run --config tsconfig_server.json -A src/server.tsx
 
-bundle:
-	deno bundle -c tsconfig_client.json src/client.tsx public/assets/app.js
+run-watch:
+	deno run --config tsconfig_server.json --watch --unstable -A src/server.tsx
+
+bundle-watch:
+	deno bundle --config tsconfig_client.json --watch --unstable src/client.tsx public/assets/app.js
 
 cache:
 	deno cache src/server.tsx -r

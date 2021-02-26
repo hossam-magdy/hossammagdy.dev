@@ -11,8 +11,7 @@ This is my personal website. It is currently doesn't include much of a content. 
 ## Development
 
 - Install [deno](https://deno.land/)
-- Install [denon](https://deno.land/x/denon)
-- `denon build` in a terminal, and `denon start` in another
+- `make bundle-watch` in a terminal, and `make run-watch` in another
 - … make changes …
 - `make test`: ✓ ? … push (CI/CD)
 
