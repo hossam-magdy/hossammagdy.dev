@@ -12,32 +12,60 @@ jobs:
     name: Build, test and deploy
     runs-on: ubuntu-latest
     env:
-      # To force applying "--quiet" to gcloud commands, (applying "--quiet" explicilty in some commands doesn't work!)
-      CLOUDSDK_CORE_DISABLE_PROMPTS: 1
+      # # To force applying "--quiet" to gcloud commands, (applying "--quiet" explicilty in some commands doesn't work!)
+      # CLOUDSDK_CORE_DISABLE_PROMPTS: 1
 
-      # gcloud executable (currently ineffective, but could be used to run gcloud from docker for example)
-      GCLOUD: "gcloud"
+      PROJECT_ID: "hossam-magdy" # for firebase deployment, required if there is no ".firebaserc" file
+      PROJECT_SERVICE: "hossammagdy"
+      PROJECT_REGION: "europe-west1"
+      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+      # GOOGLE_APPLICATION_CREDENTIALS:
+      APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+
+      # # gcloud executable (currently ineffective, but could be used to run gcloud from docker for example)
+      # GCLOUD: "gcloud"
 
       # Because currently there is no "setup-firebase" github action, like "setup-gcloud"
       # this simulates/alias for "firebase" command, use docker image with volume mappings and "GOOGLE_APPLICATION_CREDENTIALS" env for authentication
       # see: https://firebase.google.com/docs/admin/setup#add-sdk
-      FIREBASE: "docker run -v ${PWD}:/app -v ${GOOGLE_APPLICATION_CREDENTIALS}:/gac.json -e GOOGLE_APPLICATION_CREDENTIALS=/gac.json -w /app rambabusaravanan/firebase firebase"
+      # FIREBASE: "docker run -v ${PWD}:/app -v ${GOOGLE_APPLICATION_CREDENTIALS}:/gac.json -e GOOGLE_APPLICATION_CREDENTIALS=/gac.json -w /app rambabusaravanan/firebase firebase"
 
     steps:
-      - name: git clone && git checkout
+      - name: "git clone && git checkout"
         uses: actions/checkout@v2 # basically git clone
-      - name: Build docker image
+      - name: "Build docker image"
         run: make ci-build
-      - name: Run tests
+      - name: "Run tests"
         run: make ci-test
-      - name: Setup gcloud
-        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      # - name: "Setup gcloud"
+      #   uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      #   with:
+      #     service_account_key: ${{ secrets.GCP_SA_KEY }}
+      #     export_default_credentials: true
+      #     # project_id: ${{ secrets.GCP_PROJECT_ID }}
+      # # - name: "Deploy: via `gcloud` and `firebase` CLIs"
+      # #   run: make ci-deploy
+      - name: "gcloud - build docker image"
+        uses: actions-hub/gcloud@master
+        env:
+          PROJECT_ID: "hossam-magdy"
+          APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         with:
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          export_default_credentials: true
-          # project_id: ${{ secrets.GCP_PROJECT_ID }}
-      - name: "Deploy: via `gcloud` and `firebase` CLIs"
-        run: make ci-deploy
+          args: builds submit --project ${PROJECT_ID} --tag gcr.io/${PROJECT_ID}/hossammagdy
+      - name: "gcloud - deploy docker image (~creates/prepares containers)"
+        uses: actions-hub/gcloud@master
+        # env:
+        #   # PROJECT_ID: test
+        #   APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+        with:
+          args: beta run deploy ${PROJECT_SERVICE} --project ${PROJECT_ID} --image gcr.io/${PROJECT_ID}/hossammagdy --region ${PROJECT_REGION} --platform managed
+      # https://github.com/marketplace/actions/github-action-for-firebase
+      - name: "firebase -  deploy (redirect https requests to the new docker container from gcloud)"
+        uses: w9jds/firebase-action@master
+        with:
+          args: --non-interactive deploy
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
       # - name: build-push
       #   uses: docker/build-push-action@v1
       #   with:

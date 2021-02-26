@@ -7,7 +7,7 @@ This is my personal website. It is currently doesn't include much of a content. 
 - Deno
 - TypeScript
 - JSX & React (SSR + Client hydration)
-- Firebase hosting and Cloud Run
+- Firebase hosting and Cloud Run (see [docs](https://firebase.google.com/docs/hosting/cloud-run))
 - CI/CD via Github Actions (with [`GCP_SA_KEY`](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) as the only secret)
 
 ## Development

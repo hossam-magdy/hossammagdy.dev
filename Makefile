@@ -37,6 +37,8 @@ docker-start:
 	docker run --rm -it -v ${PWD}:/app -p 8080:8080 ${IMAGE_TAG}
 
 ############# Deployment
+## Using Cloud Run, to deploy an application packaged in a container image.
+## Then, using Firebase Hosting, to direct HTTPS requests to trigger the containerized app.
 
 _gcloud-build:
 	${GCLOUD} builds submit --project ${PROJECT_ID} --tag gcr.io/${PROJECT_ID}/hossammagdy
