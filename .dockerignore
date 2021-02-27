@@ -1,7 +1,9 @@
 .*
 *.log
 *.md
-# Dockerfile
+/.github/
+/.vscode/
+/Dockerfile
 /Makefile
 /firebase.json
 /public/assets/app*.js

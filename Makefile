@@ -18,7 +18,7 @@ bundle:
 	deno bundle -c=tsconfig_client.json --import-map=import_map.json --watch --unstable src/client.tsx public/assets/app.js
 
 cache:
-	deno cache src/server.tsx -r
+	deno cache --import-map=import_map.json --unstable src/server.tsx -r
 
 test:
 	deno test --import-map=import_map.json --unstable -A .

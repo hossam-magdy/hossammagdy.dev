@@ -10,29 +10,62 @@ This is my personal website. It is currently doesn't include much of a content. 
 - Firebase hosting and Cloud Run
 - CI/CD via Github Actions (with [`GCP_SA_KEY`](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) as the only secret)
 
+## Run
+
+```sh
+# Build local docker image
+make docker-build
+
+# Start/run the local docker image
+make docker-start
+
+# open: http://localhost:8080
+
+# also: `make docker-test`
+```
+
 ## Development
 
-- Install [deno](https://deno.land/)
-- `make bundle` in a terminal, and `make start` in another
-- … make changes …
-- `make test`: ✓ ? … push (CI/CD)
+```sh
+# Install deno executable: https://deno.land
 
-### To simulate the CI/CD
+# [In one terminal] Run the bundler in watch mode (deno bundle … …/app.js)
+make bundle
 
-- `make ci-build`
-- `make ci-test`
-- `make ci-deploy`
-- TBD: secret key storage steps
+# [In another terminal] Run the server in watch mode (deno run … …/server.tsx)
+make start
+
+# open: http://localhost:8080
+# change code …
+
+# Run the tests (deno test .)
+make test
+
+# To deploy:
+# `git push` to master branch
+# [OR] make deploy (need local executables: `gcloud` & `firebase`)
+```
+
+### Deploy / simulate CI/CD
+
+```sh
+# docker build …
+make ci-build
+
+# docker run … test
+make ci-test
+
+# Deploy the CloudRun docker image & deploy firebase to use the new CloudRun service revision
+# `gcloud build …` && `gcloud beta run deploy …` && `firebase deploy …`
+make ci-deploy
+```
 
 ## Refs
 
 <details>
-<summary>Links</summary>
+<summary>Ref links</summary>
 
 - Deno chat: [old](https://gitter.im/denolife/Lobby) and [new](https://discord.com/channels/684898665143206084)
-
-#### Running deno server on cloud
-
 - https://firebase.google.com/docs/hosting/cloud-run
 - https://cloud.google.com/run/docs/reference/container-contract#port
 - https://github.com/hayd/deno-docker
@@ -40,16 +73,14 @@ This is my personal website. It is currently doesn't include much of a content. 
 - CLI: gcloud: https://cloud.google.com/sdk/docs/
 - https://console.cloud.google.com/apis/api/run.googleapis.com/overview
 - (extra) AWS: https://youtu.be/MS5pzddwwqU
-
-#### React and JSX
-
-- https://dev.to/craigmorten/writing-a-react-ssr-app-in-deno-2m7
-- https://github.com/denoland/deno/pull/3038
-- https://github.com/denoland/deno/issues/4197
 </details>
 
 ## TODOs
 
+- [ ] Find out why CMD+C in docker image doesn't terminate/kill the process/image
+- [ ] Add few words or description about "firebase + CloudRun", and instructions how to build similar setup
+- [ ] Update & simplify github actions, separating the `build&test` from `gcloud build&deploy` from `firebase deploy`
+- [ ] Steps of deployment secret key storage
 - [x] Find a way around getting `deno bundle` to include the react library, then ensure `ReactDOM.hydrate` works!
 - [ ] Use a decent routing library, like [`abc`](https://deno.land/x/abc) or [`oak`](https://deno.land/x/oak)
 - [ ] Create `config.ts` file to include `assetsPath`,… etc
