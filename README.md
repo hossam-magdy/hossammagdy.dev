@@ -10,20 +10,6 @@ This is my personal website. It is currently doesn't include much of a content. 
 - Firebase hosting and Cloud Run
 - CI/CD via Github Actions (with [`GCP_SA_KEY`](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) as the only secret)
 
-## Run
-
-```sh
-# Build local docker image
-make docker-build
-
-# Start/run the local docker image
-make docker-start
-
-# open: http://localhost:8080
-
-# also: `make docker-test`
-```
-
 ## Development
 
 ```sh
@@ -46,7 +32,21 @@ make test
 # [OR] make deploy (need local executables: `gcloud` & `firebase`)
 ```
 
-### Deploy / simulate CI/CD
+## Running/testing via docker
+
+```sh
+# Build local docker image
+make docker-build
+
+# Start/run the local docker image
+make docker-start
+
+# open: http://localhost:8080
+
+# also: `make docker-test`
+```
+
+### Deployment (simulate CI/CD)
 
 ```sh
 # docker build …
@@ -63,7 +63,7 @@ make ci-deploy
 ## Refs
 
 <details>
-<summary>Ref links</summary>
+<summary>Links</summary>
 
 - Deno chat: [old](https://gitter.im/denolife/Lobby) and [new](https://discord.com/channels/684898665143206084)
 - https://firebase.google.com/docs/hosting/cloud-run

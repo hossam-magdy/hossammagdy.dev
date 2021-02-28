@@ -8,7 +8,7 @@
       {
         "source": "**",
         "run": {
-          "serviceId": "hossammagdy", // "service name" (from when you deployed the container image)
+          "serviceId": "hossammagdy-dev", // CloudRun service name (where the container image is deployed, via gcloud)
           "region": "europe-west1" // optional (if omitted, default is us-central1)
         }
       }

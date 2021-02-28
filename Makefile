@@ -1,8 +1,8 @@
 
 # CLOUDSDK_CORE_DISABLE_PROMPTS=1 # applies "--quiet" to all gcloud commands
 IMAGE_TAG?=tmp_hossammagdy_dev
-PROJECT_ID=hossam-magdy
-PROJECT_SERVICE=hossammagdy
+PROJECT_ID=hossammagdy-dev
+PROJECT_SERVICE=hossammagdy-dev
 PROJECT_REGION=europe-west1
 GCLOUD?=gcloud
 FIREBASE?=firebase # could be "docker run -v ${PWD}:/app -v ${GOOGLE_APPLICATION_CREDENTIALS}:/gac.json -e GOOGLE_APPLICATION_CREDENTIALS=/gac.json -w /app rambabusaravanan/firebase firebase"
@@ -39,10 +39,10 @@ docker-start:
 ############# Deployment
 
 _gcloud-build:
-	${GCLOUD} builds submit --project ${PROJECT_ID} --tag gcr.io/${PROJECT_ID}/hossammagdy
+	${GCLOUD} builds submit --project ${PROJECT_ID} --tag gcr.io/${PROJECT_ID}/${PROJECT_ID}
 
 _gcloud-deploy:
-	${GCLOUD} beta run deploy ${PROJECT_SERVICE} --project ${PROJECT_ID} --image gcr.io/${PROJECT_ID}/hossammagdy --region ${PROJECT_REGION} --platform managed
+	${GCLOUD} beta run deploy ${PROJECT_SERVICE} --project ${PROJECT_ID} --image gcr.io/${PROJECT_ID}/${PROJECT_ID} --region ${PROJECT_REGION} --platform managed
 
 _firebase-deploy:
 	echo ${GOOGLE_APPLICATION_CREDENTIALS} && ${FIREBASE} --non-interactive deploy
