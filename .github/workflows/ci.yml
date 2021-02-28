@@ -9,41 +9,48 @@ on:
 
 jobs:
   build:
-    name: Build, test and deploy
+    name: Build & test docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: git clone && git checkout
+        uses: actions/checkout@v2
+      - name: Build docker image
+        run: make ci-build
+      - name: Run tests
+        run: make ci-test
+
+  deploy:
+    name: Deploy to CloudRun & Firebase
+    needs: build
     runs-on: ubuntu-latest
     env:
       # To force applying "--quiet" to gcloud commands, (applying "--quiet" explicilty in some commands doesn't work!)
       CLOUDSDK_CORE_DISABLE_PROMPTS: 1
 
-      # gcloud executable (currently ineffective, but could be used to run gcloud from docker for example)
-      GCLOUD: "gcloud"
-
       # Because currently there is no "setup-firebase" github action, like "setup-gcloud"
       # this simulates/alias for "firebase" command, use docker image with volume mappings and "GOOGLE_APPLICATION_CREDENTIALS" env for authentication
+      # which points to JSON file (exactly as the exported from "CloudConsole>IAM>ServiceAccounts>Keys")
+      #
+      # The ServiceAccount of that credentials-json file must include some permissions -> the "Default compute service account"/Editor-role, should definitely be enough
       # see: https://firebase.google.com/docs/admin/setup#add-sdk
-      FIREBASE: "docker run -v ${PWD}:/app -v ${GOOGLE_APPLICATION_CREDENTIALS}:/gac.json -e GOOGLE_APPLICATION_CREDENTIALS=/gac.json -w /app rambabusaravanan/firebase firebase"
+      CLI_FIREBASE: "docker run -v ${PWD}:/app -v ${GOOGLE_APPLICATION_CREDENTIALS}:/gac.json -e GOOGLE_APPLICATION_CREDENTIALS=/gac.json -w /app rambabusaravanan/firebase firebase"
 
     steps:
       - name: git clone && git checkout
-        uses: actions/checkout@v2 # basically git clone
-      - name: Build docker image
-        run: make ci-build
-      - name: Run tests
-        run: make ci-test
-      - name: Setup gcloud
-        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        uses: actions/checkout@v2
+      # Step of gcloud setup MUST be after the git checkout, as it dumps the credentials json file
+      - name: Setup Google Cloud SDK (`gcloud auth login`)
+        uses: google-github-actions/setup-gcloud@master
         with:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
+          # to set env:GOOGLE_APPLICATION_CREDENTIALS (to path of key json file) for `firebase` in the next step
           export_default_credentials: true
-          # project_id: ${{ secrets.GCP_PROJECT_ID }}
-      - name: "Deploy: via `gcloud` and `firebase` CLIs"
-        run: make ci-deploy
-      # - name: build-push
-      #   uses: docker/build-push-action@v1
-      #   with:
-      #     username: ${{ DOCKER_USERNAME }}
-      #     password: ${{ DOCKER_PASSWORD }}
-      #     registry: myregistry
-      #     repository: myorg/myrepo
-      #     tags: v1
-      # - uses: docker://tmp_hossammagdy_dev:testing
+          # project_id: ${{ secrets.GCP_PROJECT_ID }} # project ID is set in the `Makefile`
+      - name: Setup firebase cli (pulls a docker image)
+        run: docker pull rambabusaravanan/firebase
+      - name: "`gcloud builds submit`: create new CloudRun build / docker image"
+        run: make _gcloud-build
+      - name: "`gcloud run deploy`: deploy the new build to CloudRun service"
+        run: make _gcloud-deploy
+      - name: "`firebase deploy`: to serve HTTP requests from the new CloudRun service"
+        run: make _firebase-deploy

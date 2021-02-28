@@ -1,11 +1,14 @@
 
 # CLOUDSDK_CORE_DISABLE_PROMPTS=1 # applies "--quiet" to all gcloud commands
 IMAGE_TAG?=tmp_hossammagdy_dev
-PROJECT_ID=hossammagdy-dev
-PROJECT_SERVICE=hossammagdy-dev
-PROJECT_REGION=europe-west1
-GCLOUD?=gcloud
-FIREBASE?=firebase # could be "docker run -v ${PWD}:/app -v ${GOOGLE_APPLICATION_CREDENTIALS}:/gac.json -e GOOGLE_APPLICATION_CREDENTIALS=/gac.json -w /app rambabusaravanan/firebase firebase"
+GCLOUD_PROJECT_ID=hossammagdy-dev
+GCLOUD_SERVICE=hossammagdy-dev
+GCLOUD_REGION=europe-west1
+GCLOUD_IMAGE=gcr.io/${GCLOUD_PROJECT_ID}/${GCLOUD_PROJECT_ID}
+GCLOUD_MIN_INSTANCES=1
+GCLOUD_MAX_INSTANCES=5
+CLI_GCLOUD?=gcloud
+CLI_FIREBASE?=firebase # could be "docker run -v ${PWD}:/app -v ${GOOGLE_APPLICATION_CREDENTIALS}:/gac.json -e GOOGLE_APPLICATION_CREDENTIALS=/gac.json -w /app rambabusaravanan/firebase firebase"
 
 # Starts deno server (in watch mode)
 start:
@@ -38,14 +41,26 @@ docker-start:
 
 ############# Deployment
 
+# builds new docker image in: https://gcr.io/hossammagdy-dev/hossammagdy-dev
 _gcloud-build:
-	${GCLOUD} builds submit --project ${PROJECT_ID} --tag gcr.io/${PROJECT_ID}/${PROJECT_ID}
+	${CLI_GCLOUD} \
+		builds submit \
+		--project=${GCLOUD_PROJECT_ID} \
+		--tag=${GCLOUD_IMAGE}
 
 _gcloud-deploy:
-	${GCLOUD} beta run deploy ${PROJECT_SERVICE} --project ${PROJECT_ID} --image gcr.io/${PROJECT_ID}/${PROJECT_ID} --region ${PROJECT_REGION} --platform managed
+	${CLI_GCLOUD} \
+		beta run deploy ${GCLOUD_SERVICE} \
+		--project=${GCLOUD_PROJECT_ID} \
+		--image=${GCLOUD_IMAGE} \
+		--region ${GCLOUD_REGION} \
+		--min-instances=${GCLOUD_MIN_INSTANCES} \
+		--max-instances=${GCLOUD_MAX_INSTANCES} \
+		--platform managed
 
 _firebase-deploy:
-	echo ${GOOGLE_APPLICATION_CREDENTIALS} && ${FIREBASE} --non-interactive deploy
+	@echo GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
+	${CLI_FIREBASE} --non-interactive deploy
 
 # Deploys to:
 # https://hossammagdy.dev

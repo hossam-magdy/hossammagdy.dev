@@ -1,6 +1,6 @@
 # [hossammagdy.dev](https://hossammagdy.dev)
 
-[![CI workflow](https://github.com/hossam-magdy/hossammagdy.dev/workflows/CI/badge.svg)](https://github.com/hossam-magdy/hossammagdy.dev/actions/workflows/ci.yml)
+[![CI workflow](https://github.com/hossam-magdy/hossammagdy.dev/workflows/CI/badge.svg)](https://github.com/hossam-magdy/hossammagdy.dev/actions/workflows/ci.yml), [🐳](https://hub.docker.com/r/hossammagdy/hossammagdy.dev), [🐳](https://gcr.io/hossammagdy-dev/hossammagdy-dev)
 
 This is my personal website. It is currently doesn't include much of a content. But I use it to experience different technologies. The current tech used:
 
@@ -78,9 +78,10 @@ make ci-deploy
 ## TODOs
 
 - [ ] Find out why CMD+C in docker image doesn't terminate/kill the process/image
-- [ ] Add few words or description about "firebase + CloudRun", and instructions how to build similar setup
-- [ ] Update & simplify github actions, separating the `build&test` from `gcloud build&deploy` from `firebase deploy`
-- [ ] Steps of deployment secret key storage
+- [ ] Validate docker images in `gcr.io`
+- [ ] Docs: Add few words or description about "firebase + CloudRun", and instructions how to build similar setup
+- [ ] Docs: Steps of deployment secret key storage
+- [x] Update & simplify github actions, separating the `build&test` from `gcloud build&deploy` from `firebase deploy`
 - [x] Find a way around getting `deno bundle` to include the react library, then ensure `ReactDOM.hydrate` works!
 - [ ] Use a decent routing library, like [`abc`](https://deno.land/x/abc) or [`oak`](https://deno.land/x/oak)
 - [ ] Create `config.ts` file to include `assetsPath`,… etc
