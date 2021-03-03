@@ -81,6 +81,7 @@ make ci-deploy
 - [ ] Validate docker images in `gcr.io`
 - [ ] Docs: Add few words or description about "firebase + CloudRun", and instructions how to build similar setup
 - [ ] Docs: Steps of deployment secret key storage
+- [ ] Extract headers and meta data from `skeleton.html`
 - [x] Update & simplify github actions, separating the `build&test` from `gcloud build&deploy` from `firebase deploy`
 - [x] Find a way around getting `deno bundle` to include the react library, then ensure `ReactDOM.hydrate` works!
 - [ ] Use a decent routing library, like [`abc`](https://deno.land/x/abc) or [`oak`](https://deno.land/x/oak)
