@@ -17,7 +17,14 @@ jobs:
       - name: Build docker image
         run: make ci-build
       - name: Run tests
-        run: make ci-test
+        run: make ci-test-coverage
+      - name: Code Coverage Report
+        uses: devmasx/coverage-check-action@v1.2.0
+        with:
+          type: lcov
+          result_path: ./coverage/lcov.info
+          min_coverage: 70
+          token: ${{ github.token }}
 
   deploy:
     name: Deploy to CloudRun & Firebase

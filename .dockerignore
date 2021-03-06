@@ -3,6 +3,8 @@
 *.md
 /.github/
 /.vscode/
+/.firebase/
+/coverage/
 /Dockerfile
 /Makefile
 /firebase.json

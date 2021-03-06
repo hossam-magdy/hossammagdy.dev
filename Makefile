@@ -26,6 +26,21 @@ cache:
 test:
 	deno test --import-map=import_map.json -A .
 
+test-coverage:
+	rm -rf coverage/
+	deno test --coverage=coverage/profile --unstable --import-map=import_map.json -A .
+	deno coverage --unstable coverage/profile
+
+test-coverage-lcov:
+	rm -rf coverage/
+	deno test --coverage=coverage/profile/ --unstable --import-map=import_map.json -A .
+	deno coverage --unstable coverage/profile/ --lcov > coverage/lcov.info
+
+test-coverage-html:
+	${MAKE} test-coverage-lcov
+	genhtml -o coverage/html/ coverage/lcov.info
+	open coverage/html/index.html
+
 ############# docker
 
 # Build docker image as the one built in gcloud/CloudRun
@@ -74,5 +89,9 @@ ci-build: docker-build
 
 ci-test: 
 	docker run --rm ${IMAGE_TAG} test --import-map=import_map.json -A
+
+# Generates the `lcov` file from within docker container, but with the same path of host's source code
+ci-test-coverage:
+	docker run --rm -v ${PWD}:${PWD} -w ${PWD} ${IMAGE_TAG} /bin/sh -c 'rm -rf coverage/ && deno test --coverage=coverage/profile --unstable --import-map=import_map.json -A . && deno coverage --unstable coverage/profile --lcov > coverage/lcov.info'
 
 ci-deploy: deploy
