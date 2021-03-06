@@ -1,10 +1,10 @@
-FROM hayd/alpine-deno:1.7.2
+FROM hayd/alpine-deno:1.8.0
 
 # EXPOSE $PORT (default 8080)
 WORKDIR /app
 ADD . .
-RUN deno bundle -c=tsconfig_client.json --import-map=import_map.json --unstable src/client.tsx public/assets/app.js
-RUN deno cache --import-map=import_map.json --unstable src/server.tsx
+RUN deno bundle -c=tsconfig_client.json --import-map=import_map.json src/client.tsx public/assets/app.js
+RUN deno cache --import-map=import_map.json src/server.tsx
 
 # USER deno
 # ENTRYPOINT [ "/bin/sh -c deno" ]

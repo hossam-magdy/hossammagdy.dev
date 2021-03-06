@@ -21,10 +21,10 @@ bundle:
 	deno bundle -c=tsconfig_client.json --import-map=import_map.json --watch --unstable src/client.tsx public/assets/app.js
 
 cache:
-	deno cache --import-map=import_map.json --unstable src/server.tsx -r
+	deno cache --import-map=import_map.json src/server.tsx -r
 
 test:
-	deno test --import-map=import_map.json --unstable -A .
+	deno test --import-map=import_map.json -A .
 
 ############# docker
 
@@ -73,6 +73,6 @@ deploy: _gcloud-build _gcloud-deploy _firebase-deploy
 ci-build: docker-build
 
 ci-test: 
-	docker run --rm ${IMAGE_TAG} test --import-map=import_map.json --unstable -A
+	docker run --rm ${IMAGE_TAG} test --import-map=import_map.json -A
 
 ci-deploy: deploy
