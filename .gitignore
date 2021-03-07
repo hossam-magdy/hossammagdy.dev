@@ -13,6 +13,9 @@ coverage/
 # - Firebase cache
 .firebase/
 
+# - google application credentials!
+.gac.json
+
 # - dotenv
 .env
 

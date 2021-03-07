@@ -34,7 +34,7 @@ jobs:
       # To force applying "--quiet" to gcloud commands, (applying "--quiet" explicilty in some commands doesn't work!)
       CLOUDSDK_CORE_DISABLE_PROMPTS: 1
 
-      # Because currently there is no "setup-firebase" github action, like "setup-gcloud"
+      # As currently there is no "setup-firebase" github action, like "setup-gcloud",
       # this simulates/alias for "firebase" command, use docker image with volume mappings and "GOOGLE_APPLICATION_CREDENTIALS" env for authentication
       # which points to JSON file (exactly as the exported from "CloudConsole>IAM>ServiceAccounts>Keys")
       #
@@ -48,10 +48,15 @@ jobs:
       # Step of gcloud setup MUST be after the git checkout, as it dumps the credentials json file
       - name: Setup Google Cloud SDK (`gcloud auth login`)
         uses: google-github-actions/setup-gcloud@master
+        # env:
+        #   CREDENTIALS_FILE_PATH: ${{ github.workspace }}/.gac.json
         with:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           # to set env:GOOGLE_APPLICATION_CREDENTIALS (to path of key json file) for `firebase` in the next step
           export_default_credentials: true
+          # Ref 1: https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#runner-context
+          # Ref 2: https://docs.github.com/en/actions/reference/environment-variables
+          credentials_file_path: ${{ runner.temp }}/.gac.json
           # project_id: ${{ secrets.GCP_PROJECT_ID }} # project ID is set in the `Makefile`
       - name: Setup firebase cli (pulls a docker image)
         run: docker pull rambabusaravanan/firebase

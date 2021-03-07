@@ -7,8 +7,8 @@ This is my personal website. It is currently doesn't include much of a content. 
 - Deno
 - TypeScript
 - JSX & React (SSR + Client hydration)
-- Firebase hosting and Cloud Run
-- CI/CD via Github Actions (with [`GCP_SA_KEY`](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) as the only secret)
+- Firebase hosting and Cloud Run ([docs](https://firebase.google.com/docs/hosting/cloud-run))
+- CI/CD via Github Actions (with [`GCP_SA_KEY`](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) as the only secret for `gcloud` and `firebase`)
 
 ## Development
 
@@ -78,7 +78,6 @@ make ci-deploy
 ## TODOs
 
 - [ ] Find out why CMD+C in docker image doesn't terminate/kill the process/image
-- [ ] Validate docker images in `gcr.io`
 - [ ] Docs: Add few words or description about "firebase + CloudRun", and instructions how to build similar setup
 - [ ] Docs: Steps of deployment secret key storage
 - [ ] Extract headers and meta data from `skeleton.html`

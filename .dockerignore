@@ -1,6 +1,7 @@
 .*
 *.log
 *.md
+/.gac.json
 /.github/
 /.vscode/
 /.firebase/
