@@ -10,9 +10,6 @@ public/assets/app*.css
 # - Test coverage
 coverage/
 
-# - Firebase cache
-.firebase/
-
 # - google application credentials!
 .gac.json
 

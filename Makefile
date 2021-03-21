@@ -8,7 +8,6 @@ GCLOUD_IMAGE=gcr.io/${GCLOUD_PROJECT_ID}/${GCLOUD_PROJECT_ID}
 GCLOUD_MIN_INSTANCES=1
 GCLOUD_MAX_INSTANCES=5
 CLI_GCLOUD?=gcloud
-CLI_FIREBASE?=firebase # could be "docker run -v ${PWD}:/app -v ${GOOGLE_APPLICATION_CREDENTIALS}:/gac.json -e GOOGLE_APPLICATION_CREDENTIALS=/gac.json -w /app rambabusaravanan/firebase firebase"
 
 # Starts deno server (in watch mode)
 start:
@@ -73,15 +72,10 @@ _gcloud-deploy:
 		--max-instances=${GCLOUD_MAX_INSTANCES} \
 		--platform managed
 
-_firebase-deploy:
-	@echo GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
-	${CLI_FIREBASE} --non-interactive deploy
-
 # Deploys to:
 # https://hossammagdy.dev
-# https://hossam-magdy.web.app
-# https://hossammagdy-yhrmutrvhq-ew.a.run.app
-deploy: _gcloud-build _gcloud-deploy _firebase-deploy
+# https://hossammagdy-dev-f6gvibsm2q-ew.a.run.app
+deploy: _gcloud-build _gcloud-deploy
 
 ############# CI
 

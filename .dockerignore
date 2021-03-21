@@ -4,10 +4,8 @@
 /.gac.json
 /.github/
 /.vscode/
-/.firebase/
 /coverage/
 /Dockerfile
 /Makefile
-/firebase.json
 /public/assets/app*.js
 /public/assets/app*.css

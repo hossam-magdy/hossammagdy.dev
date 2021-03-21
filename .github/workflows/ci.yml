@@ -27,20 +27,12 @@ jobs:
           token: ${{ github.token }}
 
   deploy:
-    name: Deploy to CloudRun & Firebase
+    name: Deploy to CloudRun
     needs: build
     runs-on: ubuntu-latest
     env:
       # To force applying "--quiet" to gcloud commands, (applying "--quiet" explicilty in some commands doesn't work!)
       CLOUDSDK_CORE_DISABLE_PROMPTS: 1
-
-      # As currently there is no "setup-firebase" github action, like "setup-gcloud",
-      # this simulates/alias for "firebase" command, use docker image with volume mappings and "GOOGLE_APPLICATION_CREDENTIALS" env for authentication
-      # which points to JSON file (exactly as the exported from "CloudConsole>IAM>ServiceAccounts>Keys")
-      #
-      # The ServiceAccount of that credentials-json file must include some permissions -> the "Default compute service account"/Editor-role, should definitely be enough
-      # see: https://firebase.google.com/docs/admin/setup#add-sdk
-      CLI_FIREBASE: "docker run -v ${PWD}:/app -v ${GOOGLE_APPLICATION_CREDENTIALS}:/gac.json -e GOOGLE_APPLICATION_CREDENTIALS=/gac.json -w /app rambabusaravanan/firebase firebase"
 
     steps:
       - name: git clone && git checkout
@@ -52,17 +44,13 @@ jobs:
         #   CREDENTIALS_FILE_PATH: ${{ github.workspace }}/.gac.json
         with:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
-          # to set env:GOOGLE_APPLICATION_CREDENTIALS (to path of key json file) for `firebase` in the next step
-          export_default_credentials: true
+          # # to set env:GOOGLE_APPLICATION_CREDENTIALS (to path of key json file) for `firebase` in the next step
+          # export_default_credentials: true
           # Ref 1: https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#runner-context
           # Ref 2: https://docs.github.com/en/actions/reference/environment-variables
           credentials_file_path: ${{ runner.temp }}/.gac.json
           # project_id: ${{ secrets.GCP_PROJECT_ID }} # project ID is set in the `Makefile`
-      - name: Setup firebase cli (pulls a docker image)
-        run: docker pull rambabusaravanan/firebase
       - name: "`gcloud builds submit`: create new CloudRun build / docker image"
         run: make _gcloud-build
       - name: "`gcloud run deploy`: deploy the new build to CloudRun service"
         run: make _gcloud-deploy
-      - name: "`firebase deploy`: to serve HTTP requests from the new CloudRun service"
-        run: make _firebase-deploy

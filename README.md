@@ -7,8 +7,8 @@ This is my personal website. It is currently doesn't include much of a content. 
 - Deno
 - TypeScript
 - JSX & React (SSR + Client hydration)
-- Firebase hosting and Cloud Run ([docs](https://firebase.google.com/docs/hosting/cloud-run))
-- CI/CD via Github Actions (with [`GCP_SA_KEY`](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) as the only secret for `gcloud` and `firebase`)
+- Google Cloud Run (with custom domain, docs [here](https://cloud.google.com/run/docs/mapping-custom-domains) and [here](https://cloud.google.com/run/docs))
+- CI/CD via Github Actions (with [`GCP_SA_KEY`](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) as the only secret for `gcloud`)
 
 ## Development
 
@@ -29,7 +29,7 @@ make test
 
 # To deploy:
 # `git push` to master branch
-# [OR] make deploy (need local executables: `gcloud` & `firebase`)
+# [OR] make deploy (need local executables: `gcloud`)
 ```
 
 ## Running/testing via docker
@@ -55,8 +55,8 @@ make ci-build
 # docker run … test
 make ci-test
 
-# Deploy the CloudRun docker image & deploy firebase to use the new CloudRun service revision
-# `gcloud build …` && `gcloud beta run deploy …` && `firebase deploy …`
+# Deploy the CloudRun docker image
+# `gcloud build …` && `gcloud beta run deploy …`
 make ci-deploy
 ```
 
@@ -66,10 +66,8 @@ make ci-deploy
 <summary>Links</summary>
 
 - Deno chat: [old](https://gitter.im/denolife/Lobby) and [new](https://discord.com/channels/684898665143206084)
-- https://firebase.google.com/docs/hosting/cloud-run
 - https://cloud.google.com/run/docs/reference/container-contract#port
 - https://github.com/hayd/deno-docker
-- CLI: firebase: https://firebase.google.com/docs/cli
 - CLI: gcloud: https://cloud.google.com/sdk/docs/
 - https://console.cloud.google.com/apis/api/run.googleapis.com/overview
 - (extra) AWS: https://youtu.be/MS5pzddwwqU
@@ -78,12 +76,11 @@ make ci-deploy
 ## TODOs
 
 - [ ] Find out why CMD+C in docker image doesn't terminate/kill the process/image
-- [ ] Docs: Add few words or description about "firebase + CloudRun", and instructions how to build similar setup
 - [ ] Docs: Steps of deployment secret key storage
 - [ ] Extract headers and meta data from `skeleton.html`
 - [ ] Try deno [`WebGPU API`](https://deno.land/posts/v1.8#experimental-support-for-the-webgpu-api)
 - [x] Use `deno coverage … --lcov` reports in CI pipeline
-- [x] Update & simplify github actions, separating the `build&test` from `gcloud build&deploy` from `firebase deploy`
+- [x] Update & simplify github actions, separating the `build&test` from `gcloud build&deploy`
 - [x] Find a way around getting `deno bundle` to include the react library, then ensure `ReactDOM.hydrate` works!
 - [ ] Use a decent routing library, like [`abc`](https://deno.land/x/abc) or [`oak`](https://deno.land/x/oak)
 - [ ] Create `config.ts` file to include `assetsPath`,… etc
