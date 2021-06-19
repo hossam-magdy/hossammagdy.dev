@@ -2,11 +2,9 @@
 
 [![CI workflow](https://github.com/hossam-magdy/hossammagdy.dev/workflows/CI/badge.svg)](https://github.com/hossam-magdy/hossammagdy.dev/actions/workflows/ci.yml), [🐳](https://hub.docker.com/r/hossammagdy/hossammagdy.dev), [🐳](https://gcr.io/hossammagdy-dev/hossammagdy-dev)
 
-This is my personal website. It is currently doesn't include much of a content. But I use it to experience different technologies. The current tech used:
+This is my website. Currently, it doesn't include much of a content, just short description & links. However, I mainly utilize it to experience different technologies. The current tech used:
 
-- Deno
-- TypeScript
-- JSX & React (SSR + Client hydration)
+- Deno + TypeScript + JSX & React (SSR + Client hydration)
 - Google Cloud Run (with custom domain, docs [here](https://cloud.google.com/run/docs/mapping-custom-domains) and [here](https://cloud.google.com/run/docs))
 - CI/CD via Github Actions (with [`GCP_SA_KEY`](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) as the only secret for `gcloud`)
 
@@ -37,6 +35,9 @@ make test
 ```sh
 # Build local docker image
 make docker-build
+
+# Bundle local assets, as the volume is mapped into docker start cmd
+make bundle
 
 # Start/run the local docker image
 make docker-start
