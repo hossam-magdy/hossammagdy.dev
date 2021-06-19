@@ -86,6 +86,6 @@ ci-test:
 
 # Generates the `lcov` file from within docker container, but with the same path of host's source code
 ci-test-coverage:
-	docker run --rm -v ${PWD}:${PWD} -w ${PWD} ${IMAGE_TAG} /bin/sh -c 'rm -rf coverage/ && deno test --coverage=coverage/profile --unstable --import-map=import_map.json -A . && deno coverage --unstable coverage/profile --lcov > coverage/lcov.info'
+	docker run --rm -v ${PWD}:${PWD} -w ${PWD} ${IMAGE_TAG} /bin/sh -c 'rm -rf coverage/ && deno test --coverage=coverage/profile --import-map=import_map.json -A . && deno coverage coverage/profile --lcov > coverage/lcov.info'
 
 ci-deploy: deploy
