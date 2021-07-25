@@ -21,7 +21,10 @@ for await (const req of server) {
         getServerData(req)
       } -->`,
     );
-    const headers = new Headers({ "Content-Type": "text/html; charset=utf-8" });
+    const headers = new Headers({
+      "Cache-Control": "public, max-age=3600",
+      "Content-Type": "text/html; charset=utf-8",
+    });
 
     req.respond({ headers, body });
   }
