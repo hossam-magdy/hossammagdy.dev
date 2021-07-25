@@ -1,5 +1,6 @@
 {
   "imports": {
+    "config": "./src/config.ts",
     "deps_client": "./src/deps_client.ts",
     "deps_server": "./src/deps_server.ts",
     "components/": "./src/components/",

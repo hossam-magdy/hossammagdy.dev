@@ -1,10 +1,10 @@
 import { http, mediaTypes, minifier, path } from "deps_server";
+import { assetCacheControlMaxAge } from "config";
 
 var textDecoder = new TextDecoder("utf-8");
 
 const minifyExt = ["html", "css", "js", "json"] as const;
 const allowedExt = [...minifyExt, "svg", "txt"] as const;
-const assetCacheMaxAge = 31536000 as const;
 
 export const serveStaticFile = async (req: http.ServerRequest) => {
   const filePath = `public${req.url}`;
@@ -36,7 +36,7 @@ export const serveStaticFile = async (req: http.ServerRequest) => {
 
   return {
     headers: new Headers({
-      "Cache-Control": `public, max-age=${assetCacheMaxAge}`,
+      "Cache-Control": `public, max-age=${assetCacheControlMaxAge}`,
       "Content-Type": `${mimeType}`,
     }),
     body,
