@@ -16,6 +16,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Build docker image
         run: make ci-build
+      - name: Run tests
+        run: make ci-test
       # - name: Run tests
       #   run: make ci-test-coverage
       # - name: Code Coverage Report
@@ -25,8 +27,6 @@ jobs:
       #     result_path: ./coverage/lcov.info
       #     min_coverage: 70
       #     token: ${{ github.token }}
-      - name: Run tests
-        run: make ci-test
 
   deploy:
     name: Deploy to CloudRun

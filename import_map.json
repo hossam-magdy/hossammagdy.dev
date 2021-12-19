@@ -1,9 +1,18 @@
 {
   "imports": {
     "config": "./src/config.ts",
-    "deps_client": "./src/deps_client.ts",
-    "deps_server": "./src/deps_server.ts",
     "components/": "./src/components/",
-    "utils/": "./src/utils/"
+    "utils/": "./src/utils/",
+
+    "react": "https://esm.sh/react@17.0.2",
+    "react-dom": "https://esm.sh/react-dom@17.0.2?no-check",
+    "react-dom-server": "https://esm.sh/react-dom@17.0.2/server",
+    
+    "http": "https://deno.land/std@0.88.0/http/server.ts",
+    "asserts": "https://deno.land/std@0.88.0/testing/asserts.ts",
+    "path": "https://deno.land/std@0.88.0/path/mod.ts",
+    
+    "media_types": "https://deno.land/x/media_types@v2.7.1/mod.ts",
+    "minifier": "https://deno.land/x/minifier@v1.1.1/mod.ts"
   }
 }

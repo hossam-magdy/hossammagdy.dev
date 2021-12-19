@@ -1,4 +1,6 @@
-import { React, ReactDOM } from "deps_client";
+import React from "react";
+import ReactDOM from "react-dom";
+
 import { App } from "components/App/App.tsx";
 
 console.log(

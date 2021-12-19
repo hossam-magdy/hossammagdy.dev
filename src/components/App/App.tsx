@@ -1,4 +1,4 @@
-import { React } from "deps_client";
+import React from "react";
 
 import { AboutMe } from "components/AboutMe/AboutMe.tsx";
 import { Disclaimer } from "components/Disclaimer/Disclaimer.tsx";

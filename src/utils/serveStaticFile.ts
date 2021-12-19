@@ -1,12 +1,16 @@
-import { http, mediaTypes, minifier, path } from "deps_server";
+import { ServerRequest } from "http";
+import * as mediaTypes from "media_types";
+import * as minifier from "minifier";
+import * as path from "path";
+
 import { assetCacheControlMaxAge } from "config";
 
-var textDecoder = new TextDecoder("utf-8");
+const textDecoder = new TextDecoder("utf-8");
 
 const minifyExt = ["html", "css", "js", "json"] as const;
 const allowedExt = [...minifyExt, "svg", "txt"] as const;
 
-export const serveStaticFile = async (req: http.ServerRequest) => {
+export const serveStaticFile = async (req: ServerRequest) => {
   const filePath = `public${req.url}`;
   const fileExt = path
     .extname(filePath)

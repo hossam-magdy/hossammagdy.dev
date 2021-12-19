@@ -1,4 +1,4 @@
-import { http } from "deps_server";
+import { ServerRequest } from "http";
 import { reformObject } from "utils/reformObject.ts";
 
 const getDenoData = () => ({
@@ -12,7 +12,7 @@ const getDenoData = () => ({
   // "pid": Deno.pid, // always 1 in GoogleCloudRun
 });
 
-export const getServerData = (req?: http.ServerRequest) => (JSON.stringify(
+export const getServerData = (req?: ServerRequest) => (JSON.stringify(
   {
     req: {
       processedAt: new Date().toUTCString(),

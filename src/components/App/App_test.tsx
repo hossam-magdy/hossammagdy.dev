@@ -1,4 +1,7 @@
-import { asserts, React, ReactDOMServer } from "deps_server";
+import React from "react";
+import ReactDOMServer from "react-dom-server";
+import * as asserts from "asserts";
+
 import { App } from "./App.tsx";
 
 const test = Deno.test;

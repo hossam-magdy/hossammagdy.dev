@@ -1,4 +1,4 @@
-import { React } from "deps_client";
+import React from "react";
 
 export const Disclaimer: React.FC = () => (
   <footer>

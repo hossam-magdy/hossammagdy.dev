@@ -40,14 +40,12 @@ a {
 article {
   padding: 5px;
   border-radius: 5px;
+  transition: box-shadow 0.25s ease-in-out;
   box-shadow: 0 0 20px 4px #bababf59;
 }
 
-article ul {
-  list-style: disc;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-left: 26px;
+article:hover {
+  box-shadow: 0 0 20px 20px #bababf30;
 }
 
 article > div {
@@ -60,6 +58,22 @@ article > div:last-of-type {
 
 article .name {
   font-weight: 700;
+}
+
+article ul.techstack {
+  list-style: disc;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 26px;
+}
+
+article ul.techstack > li.group > .label {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+article ul.techstack > li.group > .items {
+  font-style: italic;
 }
 
 footer {

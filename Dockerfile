@@ -1,4 +1,4 @@
-FROM denoland/deno:1.11.5
+FROM denoland/deno:1.17.0
 
 # EXPOSE $PORT (default 8080)
 WORKDIR /app
