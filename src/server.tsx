@@ -1,6 +1,6 @@
 import React from "react";
 import { renderToString } from "react-dom-server";
-import { serve } from "http";
+import { serve, ServerRequest } from "http";
 
 import { App } from "components/App/App.tsx";
 import * as config from "config";
@@ -10,11 +10,8 @@ import { isStaticFileRequest } from "utils/isStaticFileRequest.ts";
 import { serveStaticFile } from "utils/serveStaticFile.ts";
 
 export const PORT = parseInt(Deno.env.get("PORT") ?? "") || config.defaultPort;
-const server = serve({ port: PORT });
 
-console.log(`Start listening on port: ${PORT}`);
-
-for await (const req of server) {
+const handle = async (req: ServerRequest) => {
   if (isStaticFileRequest(req)) {
     const resp = await serveStaticFile(req);
     req.respond(resp || { status: 500 });
@@ -22,6 +19,7 @@ for await (const req of server) {
     // see: https://reactjs.org/docs/react-dom-server.html#rendertostaticmarkup
     const body = getSkeleton(
       `${renderToString(<App />)}\n<!-- ${getServerData(req)} -->`,
+      `<script>window.Deno={version:${JSON.stringify(Deno.version)}};</script>`,
     );
     const headers = new Headers({
       "Cache-Control": `public, max-age=${config.cacheControlMaxAge}`,
@@ -30,4 +28,11 @@ for await (const req of server) {
 
     req.respond({ headers, body });
   }
+};
+
+const server = serve({ port: PORT });
+console.log(`Started listening on port: ${PORT}`);
+
+for await (const req of server) {
+  handle(req);
 }

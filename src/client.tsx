@@ -3,9 +3,10 @@ import ReactDOM from "react-dom";
 
 import { App } from "components/App/App.tsx";
 
+declare const Deno: unknown;
 console.log(
-  "[Test] This a client-side-only JS execution,\nto validate Deno's bundling of React & ReactDOM:\n",
-  { React, ReactDOM },
+  "[Test] This a client-side only log,\nvalidating Deno's bundling of React & ReactDOM:\n",
+  { React, ReactDOM, Deno },
 );
 
 const domNode = document.querySelector("[data-reactroot]");

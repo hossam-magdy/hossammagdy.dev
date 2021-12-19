@@ -12,12 +12,12 @@ CLI_GCLOUD?=gcloud
 # Starts deno server (in watch mode)
 start:
 	@echo "*** Please run 'make bundle' in another terminal ***" && echo
-	deno run -c=tsconfig_server.json --import-map=import_map.json --watch --reload -A src/server.tsx
+	deno run -c=tsconfig_server.json --import-map=import_map.json --watch -A src/server.tsx
 
 # Bundles client artifacts (in watch mode)
 bundle:
 	@echo "*** Please run 'make start' in another terminal ***" && echo
-	deno bundle -c=tsconfig_client.json --import-map=import_map.json --watch --reload src/client.tsx public/assets/app.js
+	deno bundle -c=tsconfig_client.json --import-map=import_map.json --watch src/client.tsx public/assets/app.js
 
 cache:
 	deno cache --import-map=import_map.json src/server.tsx -r

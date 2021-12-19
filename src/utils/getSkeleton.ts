@@ -8,7 +8,12 @@ const skeletonUint8Arr = await Deno.readFile(SKELETON_FILEPATH);
 const unminifiedSkeleton = decoder.decode(skeletonUint8Arr);
 const minifiedSkeleton = minifyHTML(unminifiedSkeleton);
 
-export const getSkeleton = (content?: string) =>
-  content
-    ? minifiedSkeleton.replace("__PLACEHOLDER__", content)
+export const getSkeleton = (
+  htmlBodyContent?: string,
+  htmlHeadContent?: string,
+) =>
+  htmlBodyContent
+    ? minifiedSkeleton
+      .replace("__PLACEHOLDER_BODY__", htmlBodyContent)
+      .replace("__PLACEHOLDER_HEAD__", htmlHeadContent || "")
     : minifiedSkeleton;

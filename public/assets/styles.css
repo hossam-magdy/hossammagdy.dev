@@ -23,6 +23,7 @@ main {
   justify-content: center;
   margin: auto;
   max-width: 725px;
+  min-width: 300px;
   padding: 10px;
 }
 
@@ -79,7 +80,7 @@ article ul.techstack > li.group > .items {
 footer {
   border-radius: 5px;
   border: solid 1px #e4e4e4;
-  font-size: 90%;
+  font-size: 81%;
   font-style: italic;
   padding: 5px;
   transition: box-shadow 0.1s ease-in-out;

@@ -25,7 +25,7 @@ export const AboutMe: React.FC<{ name?: string }> = (
       </ul>
     </div>
     <div>
-      For more: {LINKS.map(({ text, href }, i) => (
+      More on: {LINKS.map(({ text, href }, i) => (
         <>
           <a href={href} target="_blank" rel="noopener">{text}</a>
           {i < LINKS.length - 1 ? ", " : ""}
